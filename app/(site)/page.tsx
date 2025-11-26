@@ -26,67 +26,89 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-20">
-      <section className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-        <div className="space-y-8">
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-neon-300/80">AI MEDIA · PORTFOLIO</p>
-            <h1 className="mt-5 font-display text-4xl leading-tight text-white md:text-6xl">
-              {hero.name}
-            </h1>
-            <p className="mt-3 text-2xl text-neon-200">{hero.slogan}</p>
-            <p className="mt-4 text-base text-white/80">{hero.intro}</p>
-          </div>
-          <div className="flex flex-wrap gap-3 text-sm text-white/80">
-            {hero.tags?.map((tag: string) => (
-              <span key={tag} className="rounded-full border border-white/15 px-4 py-1">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Button asChild>
-              <Link href="/resume">查看在线简历</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href="/portfolio">浏览作品集</Link>
-            </Button>
-          </div>
-          {spotlightMetrics.length > 0 && (
-            <div className="grid gap-4 md:grid-cols-2">
-              {spotlightMetrics.map((metric) => (
-                <div
-                  key={metric.id}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"
-                >
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/60">{metric.label}</p>
-                  <p className="mt-3 text-3xl font-display text-neon-200">{metric.value}</p>
-                  {metric.description && (
-                    <p className="mt-1 text-xs text-white/60">{metric.description}</p>
-                  )}
-                </div>
+      <section className="relative mx-auto max-w-6xl overflow-hidden rounded-[44px] border border-white/10 bg-white/5 px-6 py-16 shadow-floating">
+        <div className="pointer-events-none absolute inset-0 opacity-60">
+          <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-neon-400/20 blur-[120px]" />
+          <div className="absolute right-6 bottom-0 h-48 w-48 rounded-full bg-indigo-500/30 blur-[100px]" />
+        </div>
+        <div className="relative grid gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <p className="text-sm uppercase tracking-[0.35em] text-neon-300/80">
+                AI MEDIA · PORTFOLIO
+              </p>
+              <h1 className="font-display text-4xl leading-tight text-white md:text-6xl">
+                {hero.name}
+              </h1>
+              <p className="text-2xl text-neon-200">{hero.slogan}</p>
+              <p className="text-base text-white/80">{hero.intro}</p>
+            </div>
+            <div className="flex flex-wrap gap-3 text-sm text-white/80">
+              {hero.tags?.map((tag: string) => (
+                <span key={tag} className="rounded-full border border-white/15 px-4 py-1">
+                  {tag}
+                </span>
               ))}
             </div>
-          )}
-        </div>
-        <div className="relative">
-          <div className="absolute inset-0 blur-3xl opacity-60">
-            <div className="h-full w-full rounded-[40px] bg-gradient-to-br from-neon-400/30 to-transparent" />
-          </div>
-          <div className="relative rounded-[36px] border border-white/10 bg-white/5 p-4 shadow-floating">
-            <div className="overflow-hidden rounded-[28px] border border-white/10 bg-ink-900">
-              <Image
-                src={heroAvatar}
-                alt={`${hero.name} portrait`}
-                width={560}
-                height={700}
-                className="h-full w-full object-cover"
-                priority
-              />
+            <div className="flex flex-wrap gap-4">
+              <Button asChild>
+                <Link href="/resume">查看在线简历</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/portfolio">浏览作品集</Link>
+              </Button>
             </div>
-            <div className="mt-6 space-y-2 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/80">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Focus Now</p>
-              <p>AI 叙事、数据故事化、跨平台运营策略。</p>
-              <p className="text-white/60">正在与政务、新消费与教育品牌合作内容增长方案。</p>
+            {spotlightMetrics.length > 0 && (
+              <div className="grid gap-4 md:grid-cols-2">
+                {spotlightMetrics.map((metric) => (
+                  <div
+                    key={metric.id}
+                    className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"
+                  >
+                    <p className="text-xs uppercase tracking-[0.3em] text-white/60">{metric.label}</p>
+                    <p className="mt-3 text-3xl font-display text-neon-200">{metric.value}</p>
+                    {metric.description && (
+                      <p className="mt-1 text-xs text-white/60">{metric.description}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
+              <p className="text-xs uppercase tracking-[0.35em] text-white/50">Current Focus</p>
+              <div className="mt-3 grid gap-2 text-white/70 md:grid-cols-2">
+                <p>· AI 叙事方式与多模态可视化表达</p>
+                <p>· 数据看板驱动的内容增长策略</p>
+                <p>· 跨平台热点运营与商业合作提案</p>
+                <p>· AIGC 流程沉淀与脚本模板化</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative flex flex-col items-center gap-6">
+            <div className="relative w-full max-w-[320px]">
+              <div className="absolute -inset-2 rounded-[36px] bg-gradient-to-br from-neon-400/20 to-transparent blur-3xl" />
+              <div className="relative overflow-hidden rounded-[32px] border border-white/15 bg-ink-900">
+                <Image
+                  src={heroAvatar}
+                  alt={`${hero.name} portrait`}
+                  width={360}
+                  height={480}
+                  className="h-[420px] w-full object-cover"
+                  priority
+                />
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 text-xs uppercase tracking-[0.4em] text-white/60">
+                  <span className="rounded-full bg-white/20 px-3 py-1">AI</span>
+                  <span className="rounded-full bg-white/20 px-3 py-1">MEDIA</span>
+                </div>
+              </div>
+            </div>
+            <div className="w-full max-w-[360px] space-y-3 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Recent Highlights</p>
+              <div className="space-y-2">
+                <p>· 策划 3 期政务热点，单期曝光破 2.2 亿</p>
+                <p>· 将 PPT 方案转为站内视频，平均节约 40% 交付时间</p>
+                <p>· 提供全栈 CMS，可随时更新 PDF / MP4 / 新闻链接</p>
+              </div>
             </div>
           </div>
         </div>
