@@ -10,7 +10,8 @@
     "prisma:generate": "prisma generate",
     "prisma:deploy": "prisma migrate deploy",
     "db:push": "prisma db push",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts",
+    "vercel-build": "prisma generate && next build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
