@@ -85,15 +85,15 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="relative flex flex-col items-center gap-6">
-            <div className="relative w-full max-w-[320px]">
+            <div className="relative w-full max-w-[300px]">
               <div className="absolute -inset-2 rounded-[36px] bg-gradient-to-br from-neon-400/20 to-transparent blur-3xl" />
               <div className="relative overflow-hidden rounded-[32px] border border-white/15 bg-ink-900">
                 <Image
                   src={heroAvatar}
                   alt={`${hero.name} portrait`}
-                  width={360}
-                  height={480}
-                  className="h-[420px] w-full object-cover"
+                  width={320}
+                  height={420}
+                  className="h-[380px] w-full object-cover"
                   priority
                 />
                 <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 text-xs uppercase tracking-[0.4em] text-white/60">
@@ -102,7 +102,7 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="w-full max-w-[360px] space-y-3 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
+            <div className="w-full max-w-[360px] space-y-3 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-5 text-sm text-white/80">
               <p className="text-xs uppercase tracking-[0.3em] text-white/50">Recent Highlights</p>
               <div className="space-y-2">
                 <p>· 策划 3 期政务热点，单期曝光破 2.2 亿</p>
