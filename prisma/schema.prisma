@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         String    @default("admin")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Education {
+  id          String   @id @default(cuid())
+  school      String
+  schoolEn    String?
+  degree      String
+  degreeEn    String?
+  major       String?
+  majorEn     String?
+  location    String?
+  startDate   DateTime?
+  endDate     DateTime?
+  highlights  String[]
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  organization String
+  organizationEn String?
+  role          String
+  roleEn        String?
+  city          String?
+  domainTags    String[]
+  startDate     DateTime?
+  endDate       DateTime?
+  summary       String?
+  summaryEn     String?
+  achievements  String[]
+  metrics       Json?
+  featured      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model PortfolioItem {
+  id           String         @id @default(cuid())
+  title        String
+  titleEn      String?
+  kind         PortfolioKind
+  description  String?
+  descriptionEn String?
+  coverUrl     String?
+  linkUrl      String
+  downloadUrl  String?
+  tags         String[]
+  priority     Int            @default(0)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+enum PortfolioKind {
+  PRESENTATION
+  ARTICLE
+  VIDEO
+  DATA_REPORT
+  OTHER
+}
+
+model ExternalLink {
+  id          String   @id @default(cuid())
+  title       String
+  titleEn     String?
+  platform    String?
+  category    String?
+  summary     String?
+  summaryEn   String?
+  url         String
+  publishDate DateTime?
+  coverUrl    String?
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HighlightMetric {
+  id         String   @id @default(cuid())
+  label      String
+  labelEn    String?
+  value      String
+  description String?
+  orderIndex Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model ContentBlock {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  payload   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactLink {
+  id        String   @id @default(cuid())
+  platform  String
+  handle    String?
+  url       String
+  icon      String?
+  priority  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+}
+

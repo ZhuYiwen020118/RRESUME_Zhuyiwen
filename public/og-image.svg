@@ -1,0 +1,20 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0C1017"/>
+  <circle cx="1020" cy="140" r="220" fill="url(#g1)" opacity="0.3"/>
+  <defs>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1020 140) rotate(90) scale(220)">
+      <stop stop-color="#31FF2B"/>
+      <stop offset="1" stop-color="#0C1017" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <text x="120" y="220" fill="#31FF2B" font-size="56" font-family="Space Grotesk, sans-serif" font-weight="600">
+    AI × 数字媒体 × 内容运营
+  </text>
+  <text x="120" y="300" fill="#ADBCE6" font-size="96" font-family="Space Grotesk, sans-serif" font-weight="700">
+    Personal Resume + Portfolio
+  </text>
+  <text x="120" y="380" fill="#FFFFFF" font-size="32" font-family="Inter, sans-serif">
+    即时维护的内容中台 · 支持后台编辑与多语言扩展
+  </text>
+</svg>
+

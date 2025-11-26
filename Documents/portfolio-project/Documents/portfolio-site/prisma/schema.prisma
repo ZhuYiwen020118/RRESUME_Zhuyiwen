@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING") // For Vercel Postgres
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Experience {
+  id          String   @id @default(cuid())
+  company     String
+  position    String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  isCurrent   Boolean  @default(false)
+  description String   @db.Text
+  metrics     String?  // JSON string
+  tags        String?  // Comma separated
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Portfolio {
+  id          String   @id @default(cuid())
+  title       String
+  type        String   // PPT, Video, Article
+  description String?  @db.Text
+  coverImage  String?
+  fileUrl     String?
+  linkUrl     String?
+  tags        String?
+  priority    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ArticleLink {
+  id          String   @id @default(cuid())
+  title       String
+  source      String
+  publishDate DateTime
+  url         String
+  summary     String?
+  coverImage  String?
+  tags        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteConfig {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

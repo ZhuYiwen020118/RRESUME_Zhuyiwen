@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Media Resume - 静态预览</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: radial-gradient(circle at 20% 20%, rgba(31, 155, 255, 0.2), transparent 45%),
+          radial-gradient(circle at 80% 0%, rgba(78, 118, 255, 0.25), transparent 50%),
+          #030b20;
+        color: #ffffff;
+      }
+      header,
+      section {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      header {
+        padding-top: 72px;
+        display: grid;
+        gap: 24px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tag {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-size: 13px;
+      }
+      .button-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 12px 24px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 15px;
+      }
+      .btn-primary {
+        background: linear-gradient(120deg, #4bb4ff, #1f9bff);
+        color: #04122c;
+        box-shadow: 0 12px 28px rgba(19, 110, 255, 0.35);
+      }
+      .btn-outline {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.05);
+        color: #ffffff;
+      }
+      .card-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .card {
+        border-radius: 28px;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .label {
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        padding: 24px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="label">AI MEDIA</p>
+      <h1 style="font-size: 56px; margin: 0;">张三 · AI × 数字媒体 × 内容运营</h1>
+      <p style="font-size: 22px; color: #92a4ff; margin: 0;">
+        把内容策划、热点运营与数据分析打包，提供可量化的增长结果。
+      </p>
+      <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.7;">
+        拥有人工智能与数字媒体硕士背景，曾负责多个政务与品牌账号的内容策略，擅长借助
+        AIGC、自动化脚本与可视化工具提升生产效率。
+      </p>
+      <div class="tags">
+        <span class="tag">热点挖掘</span>
+        <span class="tag">AIGC 实战</span>
+        <span class="tag">数据驱动</span>
+        <span class="tag">视频制作</span>
+      </div>
+      <div class="button-row">
+        <button class="btn btn-primary">查看简历</button>
+        <button class="btn btn-outline">查看作品集</button>
+      </div>
+    </header>
+
+    <section>
+      <p class="label">Data Snapshot</p>
+      <h2 style="font-size: 32px; margin: 12px 0 24px;">高光指标</h2>
+      <div class="card-grid">
+        <div class="card">
+          <p class="label">累计曝光</p>
+          <p style="font-size: 42px; margin: 12px 0;">3.2 亿+</p>
+          <p style="color: rgba(255,255,255,0.7);">多平台热点专题曝光总量</p>
+        </div>
+        <div class="card">
+          <p class="label">粉丝增长</p>
+          <p style="font-size: 42px; margin: 12px 0;">78%</p>
+          <p style="color: rgba(255,255,255,0.7);">政务号季度粉丝增幅</p>
+        </div>
+        <div class="card">
+          <p class="label">AIGC 节省</p>
+          <p style="font-size: 42px; margin: 12px 0;">-40%</p>
+          <p style="color: rgba(255,255,255,0.7);">AIGC 流程让稿件交付提速</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="label">Experience</p>
+      <h2 style="font-size: 32px; margin: 12px 0 24px;">精选经历</h2>
+      <div class="card-grid">
+        <div class="card">
+          <p class="label">热点运营</p>
+          <h3>字节跳动 · 内容策略实习生</h3>
+          <p style="color: rgba(255,255,255,0.7);">
+            负责热点追踪脚本与话题预测模型，单条视频阅读量破 2200 万。
+          </p>
+        </div>
+        <div class="card">
+          <p class="label">新闻采编</p>
+          <h3>新华社新媒体中心</h3>
+          <p style="color: rgba(255,255,255,0.7);">
+            策划 AI 可视化选题，打造冲突性叙事模板，提升完播率 35%。
+          </p>
+        </div>
+        <div class="card">
+          <p class="label">活动传播</p>
+          <h3>世界人工智能大会组委会</h3>
+          <p style="color: rgba(255,255,255,0.7);">
+            输出大会传播数据看板，结合 GPT 生成新闻要点。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      静态预览仅用于展示视觉方向，完整功能请运行 Next.js 项目。
+    </footer>
+  </body>
+</html>
+
