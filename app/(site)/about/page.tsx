@@ -1,6 +1,5 @@
 import { Section } from "@/components/section";
 import { getAboutContent, getEducation, getHighlightMetrics } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 
 const skillGroups = [

@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/section";
-import { HighlightGrid } from "@/components/highlight-grid";
 import { ExperienceList } from "@/components/experience-list";
 import { Card } from "@/components/ui/card";
 import {

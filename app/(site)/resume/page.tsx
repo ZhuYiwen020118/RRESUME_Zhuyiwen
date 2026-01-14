@@ -28,7 +28,7 @@ export default async function ResumePage() {
               <h1 className="text-2xl font-bold text-white">{hero.name}</h1>
               <p className="text-neon-300">{hero.slogan}</p>
             </div>
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="outline">
               <Link href={resumePdf} target="_blank">
                 下载 PDF
               </Link>
