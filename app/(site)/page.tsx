@@ -170,7 +170,7 @@ export default async function HomePage() {
           </div>
         )}
         <div className="mt-6 text-right">
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="ghost">
             <Link href="/portfolio">查看全部 →</Link>
           </Button>
         </div>
