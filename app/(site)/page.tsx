@@ -87,13 +87,13 @@ export default async function HomePage() {
 
               {/* 按钮 */}
               <div className="flex flex-wrap justify-center gap-2 pt-1 md:justify-start">
-                <Button asChild size="sm">
+                <Button asChild>
                   <Link href="/resume">查看简历</Link>
                 </Button>
-                <Button asChild variant="outline" size="sm">
+                <Button asChild variant="outline">
                   <Link href="/portfolio">作品集</Link>
                 </Button>
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="ghost">
                   <Link href="/contact">联系我</Link>
                 </Button>
               </div>
@@ -118,7 +118,7 @@ export default async function HomePage() {
       <Section eyebrow="经历" title="工作经历">
         <ExperienceList experiences={experiences} showFeaturedTag />
         <div className="mt-6 text-right">
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="ghost">
             <Link href="/experience">查看全部 →</Link>
           </Button>
         </div>
