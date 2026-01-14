@@ -1,192 +1,112 @@
-# AI Media Resume · Next.js 15 全栈站点
+# 个人简历与作品集站（Next.js 15 + Prisma + Tailwind）
 
-面向「人工智能 × 数字媒体 × 新媒体运营」岗位的个人简历 + 作品集网站，内置可登录后台、Prisma 数据模型、Tailwind 设计系统以及可选静态预览。
+面向内容/新媒体/增长方向的全栈个人站点：前台（首页/关于/经历/作品集/联系/在线简历）+ 后台可维护内容 + Postgres 数据存储，可一键部署到 Vercel。
 
-## 功能概览
+## 功能亮点
+- **数据库驱动的前台**：所有文案、经历、作品、指标、媒体链接均来自数据库，改完后台即时生效。
+- **后台内容中台**：`/admin` 登录后维护 Slogan、教育、经历、作品、媒体链接、指标、联系方式等。
+- **身份认证**：邮箱+密码，Session 写入数据库，安全持久。
+- **文件与媒体**：支持本地 PDF/MP4/图片（放 `public/media`），也可填外链。
+- **设计系统**：Tailwind + 自定义组件（按钮/徽章/卡片/Section），深浅色切换，毛玻璃卡片。
+- **静态预览**：`static-preview/index.html` 可直接双击查看视觉稿，无需启动服务。
 
-- **App Router + Server Components**：所有前台页面（首页 / 关于 / 经历 / 作品集 / 联系 / 在线简历）均由数据库驱动，默认中文内容字段并保留英文拓展位。
-- **后台内容中台**：`/admin` 登录后可维护 Slogan、教育、经历、作品集、新闻链接、指标、联系方式等，所有字段均存入 Postgres。
-- **Prisma + Vercel Postgres**：统一数据模型，附带 `seed` 脚本快速初始化示例内容与管理员账号。
-- **身份认证**：邮箱 + 密码登录，使用安全 Session Cookie 与数据库 Session 表维护状态。
-- **表单与 Server Actions**：后台 CRUD、联系表单均通过 Server Actions 执行并自动 `revalidatePath`，保证前台实时更新。
-- **设计体系**：Tailwind + 自定义组件（按钮、标签、卡片等），营造深色媒体科技感；附带 `static-preview/index.html` 可双击预览视觉方向。
+## 技术栈
+- Next.js 15（App Router, Server Components）
+- TypeScript / Tailwind CSS
+- Prisma / Postgres（默认兼容 Vercel Postgres）
+- Server Actions + Zod 表单校验
 
 ## 目录结构
-
 ```
 app/
-  (site)/           # 前台所有页面 + 布局（首页/关于/经历/作品/联系/简历/隐私等）
-  admin/            # 后台登录与各 CRUD 页面
-components/         # UI 组件、后台布局、富文本等
-lib/                # Prisma 客户端、认证、数据获取、校验工具
-prisma/             # Prisma schema + 种子脚本
-public/             # 静态资源（logo、OG 图、media 目录下的 PDF/视频等）
-static-preview/     # 可双击打开的静态视觉稿
-tailwind.config.ts  # 设计令牌配置
+  (site)/        前台页面（首页/关于/经历/作品/联系/简历）
+  admin/         后台登录与 CRUD
+  globals.css    全局样式
+  layout.tsx     根布局
+components/      UI 组件（按钮/卡片/Section 等）
+lib/             Prisma 客户端、认证、数据读取、校验工具
+prisma/          schema.prisma + seed.ts
+public/          静态资源（media/ 下放 PDF/MP4/图片）
+static-preview/  静态视觉稿，双击即可预览
+tailwind.config.ts  Tailwind 配置与设计令牌
 ```
 
-## 环境依赖
-
-- Node.js ≥ 18.18（建议 20.x）
+## 环境要求
+- Node.js ≥ 18.18（推荐 20+）
 - npm / pnpm / bun 任一包管理器
-- Postgres 数据库（可直接使用 Vercel Postgres）
+- Postgres 数据库（本地或 Vercel Postgres）
 
-## 快速开始
-
-1. **安装依赖**
-
-   ```bash
-   npm install
-   # 或 pnpm install
-   ```
-
-2. **配置环境变量**
-
-   - 复制 `.env.example` 为 `.env.local`
-   - 设置 `DATABASE_URL`（Postgres 连接串）、`ADMIN_EMAIL`、`ADMIN_PASSWORD`
-
-3. **初始化数据库 + 示例数据**
-
-   ```bash
-   npx prisma db push
-   npm run seed
-   ```
-
-4. **启动开发服务器**
-
-   ```bash
-   npm run dev
-   ```
-
-   访问 `http://localhost:3000` 查看前台，`http://localhost:3000/admin/login` 登录后台。
-
-## 媒体文件管理
-
-- 所有原始素材（PDF、MP4、图片等）建议放入 `public/media/` 目录。示例项目附带：
-  - `resume-sample.pdf`：提供给 `/resume` 页面嵌入的在线预览，可直接替换成你的最新简历。
-  - `showcase-one.mp4` / `showcase-two.mp4`：作品集页的视频卡片直接站内播放，可覆盖为自己的 MP4。
-- 后台「作品集」表单支持填写相对路径（如 `/media/video.mp4`），便于引用上述文件，也可以混合使用外链。
-- 若要展示 PPT，建议转换为 PDF 或视频后放置在 `public/media/`，再在后台更新链接，前台即可同步展示。
-
-## Static Preview
-
-无需启动框架即可快速展示首页视觉：在 macOS / Windows 双击 `static-preview/index.html`，或浏览器打开 `static-preview/index.html` 路径即可。该文件只包含静态排版示意，不含动态数据或后台能力。
-
-## 后台使用流程
-
-1. 通过 `/admin/login` 使用 `.env` 中的管理员邮箱 + 密码登录。
-2. 进入 Dashboard 查看概览与最新留言，可在侧边栏进入经历 / 作品集 / 链接 / 文案配置等页面。
-3. 每个模块均支持新增 + 编辑 + 删除，字段均带占位提示；保存后即刻在前台生效。
-4. 联系页面的访客留言存入数据库，可在 Dashboard 查看最近 5 条。
-
-## 部署到 Vercel
-
-1. 在 Vercel 新建项目，导入此仓库。
-2. 在 **Settings → Environment Variables** 中配置：
-   - `DATABASE_URL`
-   - `ADMIN_EMAIL`
-   - `ADMIN_PASSWORD`
-3. 在 Vercel Dashboard 中创建或绑定 Postgres（Vercel 会提供连接串）。
-4. 部署后执行：
-
-   ```bash
-   npx prisma migrate deploy
-   npm run seed
-   ```
-
-5. 后续内容更新均通过后台完成，无需二次部署；若调整数据结构，请重新运行 `prisma migrate`.
-
-## 设计与可扩展性
-
-- 色板：深海蓝背景 + 霓虹蓝强调 + 银灰辅助，更贴近互联网大厂的沉稳简洁风。
-- 字体：`Space Grotesk`（标题）+ `Inter`（正文），可在 Tailwind 中自定义。
-- 多语言：所有内容字段均可扩展 `_en` 等字段；后台可继续添加对应输入框。
-- 安全性：密码采用 `bcrypt` 哈希，Session 存入数据库；如需多管理员，可在用户表新增记录。
-
-欢迎根据岗位需求继续扩展，如添加 NextAuth、文件上传、更多统计图表等。祝投递顺利！ 🎯
-
----
-
-## 小白也能看懂的后端维护指南
-
-> **本地根目录**：`/Users/s1mple/portfolio-project`  
-> **远程仓库**：`https://github.com/ZhuYiwen020118/RRESUME_Zhuyiwen`
-
-### 1. 整体目录（换电脑时可整体复制）
-
+## 本地快速开始（小白指引）
+1) 安装依赖  
+```bash
+npm install
+# 或 pnpm install
 ```
-portfolio-project/
-├── app/
-│   ├── (site)/        # 前台所有页面
-│   ├── admin/         # 后台登录页 + CRUD 页面
-│   ├── globals.css    # 全局样式入口
-│   └── layout.tsx     # 根布局
-├── components/        # UI 组件、Section、后台 Shell
-├── lib/               # Prisma 客户端、Auth、数据读取、校验工具
-├── prisma/            # schema.prisma + seed.ts
-├── public/            # 静态资源（media/ 下放 PDF & MP4）
-├── static-preview/    # 双击可预览的静态 HTML
-├── package.json       # 依赖 + npm scripts（含 vercel-build）
-└── README.md          # 使用说明
+2) 配置环境变量  
+复制 `.env.example` 为 `.env.local`，至少填：  
+- `DATABASE_URL`  Postgres 连接串  
+- `ADMIN_EMAIL`   后台管理员邮箱  
+- `ADMIN_PASSWORD` 后台管理员密码  
+
+3) 初始化数据库 + 示例数据  
+```bash
+npx prisma db push
+npm run seed
 ```
 
-### 2. 关键文件做什么？怎么改？
+4) 启动开发  
+```bash
+npm run dev
+```
+默认端口 3000（若被占用会自动切换，如 3001）。前台 `http://localhost:3000`，后台登录 `http://localhost:3000/admin/login`。
 
-| 位置 | 作用 | 修改建议 |
-| --- | --- | --- |
-| `lib/prisma.ts` | 复用 Prisma Client，避免重复创建 | 一般不改 |
-| `lib/auth.ts` | 管理后台 Session/Cookie | 需要改有效期或 Cookie 名称时修改 |
-| `lib/data.ts` | 前台读取数据库并提供默认内容 | 新增页面数据时仿照已有函数 |
-| `lib/validators.ts` | Zod 校验表单输入 | 每新增字段都要同步更新 |
-| `prisma/schema.prisma` | 所有数据模型定义 | 改字段后运行 `npx prisma migrate dev`（本地）|
-| `prisma/seed.ts` | 初始化示例数据 + 管理员账号 | 更新默认文案或文件名后执行 `npm run seed` |
-| `app/admin/actions.ts` | 后台表单的 Server Actions | 添加新模块时在此实现 `save`/`delete` |
-| `public/media/` | PDF、MP4、头像等静态文件 | 直接替换同名文件或新增文件再在后台引用 |
-| `package.json` | 运行脚本，`vercel-build` 会自动 `prisma generate` | 不要删除，Vercel 依赖它 |
+## 部署到 Vercel（最简单）
+1) Vercel 新建项目，导入本仓库。  
+2) 在 **Settings → Environment Variables** 添加：`DATABASE_URL`、`ADMIN_EMAIL`、`ADMIN_PASSWORD`。  
+3) 绑定/创建 Postgres（Vercel 提供连接串）。  
+4) 部署完成后，在项目控制台运行：  
+```bash
+npx prisma migrate deploy
+npm run seed
+```
+5) 后续改内容只需登录后台，无需再次部署。若改了数据模型，请重新执行上面两条命令。
 
-### 3. 修改流程（每次迭代都照着做）
+## 内容修改指南（不改代码的方式）
+后台地址：`/admin/login`  
+登录后：
+- **Hero/文案**：在「内容块」里修改 Slogan、简介、标签等。
+- **教育/经历**：对应列表页新增/编辑；支持“精选”标记、时间、城市、成就列表。
+- **作品集**：可填标题、描述、类型（视频/链接/PDF）、标签、外链或站内 `/media/...`。
+- **媒体报道**：填写标题、平台、摘要、链接。
+- **指标（Highlight）**：填写 label/value/description，首页会展示。
+- **联系方式**：邮箱、电话/微信、社交链接。
 
-1. `git pull origin main`（换电脑先 `git clone ...`）。
-2. `npm install`（首次或依赖变动）→ `npm run dev` 本地预览。
-3. 编辑对应文件，保存。
-4. `npm run lint`，确保没有报错。
-5. `git add .` → `git commit -m "feat: xxx"` → `git push origin main`，Vercel 自动部署。
-6. 如果改了数据结构或需要种子数据，对生产数据库执行：
-   ```bash
-   npx prisma migrate deploy
-   npm run seed
-   ```
+媒体文件放 `public/media/` 后，在后台填写相对路径即可（如 `/media/resume.pdf` 或 `/media/showreel.mp4`）。不想进后台也可直接替换同名文件。
 
-### 4. 常见维护场景
+## 代码层常用修改
+- **UI 主题/色板**：`tailwind.config.ts` + `app/globals.css`。浅色/深色变量在 `:root` 中定义。
+- **按钮/卡片/徽章**：`components/ui/button.tsx`、`components/ui/card.tsx`、`components/ui/badge.tsx`。
+- **首页结构**：`app/(site)/page.tsx`。
+- **关于/经历/作品/联系/简历**：对应 `app/(site)/*/page.tsx`。
+- **默认数据**：`lib/data.ts` 提供前台兜底文案；`prisma/seed.ts` 写入示例数据。
+- **OG 图 / Logo**：`public/og-image.svg`、`public/media/*`。
 
-- **替换简历 PDF / 视频**：把新文件放入 `public/media/`，文件名沿用 `resume-sample.pdf` 等即可；或在后台更新作品链接。
-- **新增作品类型或字段**：先改 `prisma/schema.prisma`，运行数据库迁移，再更新 `lib/validators.ts`、`portfolio-tabs.tsx` 等使用到该字段的文件。
-- **忘记后台密码**：在 `.env` 写好新的 `ADMIN_EMAIL/ADMIN_PASSWORD`，运行 `npm run seed` 即可重置。
-- **绑定/修改域名**：在 Vercel → Settings → Domains 添加新域名，按提示在 DNS 服务商配置 `A` + `CNAME`。
+## 常见问题
+1) **端口被占用导致白屏**：终端会提示自动改到 3001，按提示访问新端口。  
+2) **Tailwind 类不存在导致编译失败**：检查 `globals.css` 中的 `@apply` 是否用了自定义未声明的类。  
+3) **后台密码忘记**：改 `.env.local` 的 `ADMIN_EMAIL/ADMIN_PASSWORD`，然后 `npm run seed` 重置。  
+4) **数据库迁移**：改了 `schema.prisma` 后，开发环境跑 `npx prisma migrate dev`；生产跑 `npx prisma migrate deploy`。  
+5) **静态预览打不开**：直接双击 `static-preview/index.html`，不依赖 Node 环境。  
 
-只要按照以上步骤，就能放心维护后端和数据，即使换电脑也能快速恢复环境。遇到特殊问题时，再查阅本 README 或联系我即可。
+## 设计说明
+- 深浅色双主题，卡片统一毛玻璃（浅色下提高不透明度和阴影，深色下降低背景干扰）。
+- 标题/正文字体：`Syne`（Display）+ `Outfit/Noto Sans SC`（正文）。
+- 重点色：蓝（accent-1）+ 粉（accent-2），前景文字在两种主题下均保持可读对比度。
 
----
+## 开发 & 提交建议
+1) `npm run dev` 本地预览 → 确认无报错。  
+2) `npm run lint` 保持代码规范。  
+3) `git add . && git commit -m "feat: xxx"` → `git push`，Vercel 自动部署。  
 
-## 搭建全流程复盘（后端 → 前端 → 上线）
-
-1. **需求分析与信息架构**  
-   - 明确展示目标：体现 “AI × 数字媒体 × 内容运营” 专长，需要首页、关于、经历、作品集、联系、在线简历六大模块，并要求后台可维护。  
-   - 设计数据库：在 Prisma schema 中定义 User/Session/Education/Experience/PortfolioItem/ExternalLink/HighlightMetric/ContentBlock/ContactLink/ContactMessage，保证所有显示内容均可 CRUD。
-
-2. **数据层与后台实现**  
-   - `prisma/schema.prisma` 定义模型，`prisma/seed.ts` 写入示例经历、作品、PDF/MP4 链接与管理员账号。  
-   - `app/admin/actions.ts` 使用 Server Actions + Zod 完成增删改查、调用 `revalidatePath`，`lib/auth.ts` 负责 Session/Cookie。  
-   - `lib/data.ts` 封装 `getHeroContent`、`getPortfolioItems` 等读取函数，提供默认值，前台 Server Components 直接消费。
-
-3. **前端架构与视觉**  
-   - Next.js 15 App Router + TypeScript；`app/(site)` 存放前台页面、`app/admin` 存放后台页。  
-   - Tailwind + 自定义 UI（按钮/卡片/Section/导航）打造深蓝 × 霓虹蓝风格，`public/media/` 放置 PDF/MP4/头像并内嵌预览。  
-   - `/resume` 内嵌 PDF Viewer，`PortfolioTabs` 对视频类型自动展示 `<video>` 播放器，其余类型跳转或下载。
-
-4. **部署与域名**  
-   - 在 `package.json` 中新增 `vercel-build`: `prisma generate && next build`，确保构建时生成最新 Prisma Client。  
-   - 代码推到 GitHub → Vercel 导入 → 配置环境变量 → 部署后对生产数据库执行 `npx prisma migrate deploy && npm run seed`。  
-   - 购买域名（如 `yiwen0118.cn`），在 DNS 服务商添加 `A`（216.198.79.1）与 `CNAME`（Vercel 提供）记录，开启 HTTPS。
-
-最终实现了 “AI 辅助规划 + 全栈自建 + 一键部署 + 后台可维护” 的完整闭环，后续可在此基础上持续扩展多语言、图表或更多作品类型。
+## 致谢
+感谢使用本模板，祝你的内容与作品脱颖而出！有新的需求（多语言、可视化报表、更多作品类型）可在此基础上继续迭代。 🎯

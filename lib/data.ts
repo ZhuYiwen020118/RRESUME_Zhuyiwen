@@ -27,7 +27,7 @@ export const getHeroContent = cache(async (): Promise<HeroContent> => {
   const payload = (block?.payload as Partial<HeroContent>) ?? {};
   return {
     name: payload.name ?? "张三",
-    slogan: payload.slogan ?? "AI × 数字媒体 × 内容运营",
+    slogan: payload.slogan ?? "内容策略 · 数据驱动 · 增长实战",
     intro:
       payload.intro ??
       "拥有人工智能与数字媒体背景，擅长将内容策略与数据增长结合。",

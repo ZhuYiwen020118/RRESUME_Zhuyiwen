@@ -30,86 +30,101 @@ export default async function AboutPage() {
     getHighlightMetrics()
   ]);
 
+  const getInitials = (text: string) => {
+    if (!text) return "·";
+    return text.slice(0, 2).toUpperCase();
+  };
+
   return (
-    <div className="space-y-20">
-      <Section
-        eyebrow="About"
-        title="人工智能 × 数字媒体的复合背景"
-        description="以多平台内容运营经验结合数据能力，为品牌与机构提供可验证的增长成果。"
-      >
-        <Card className="bg-white/5">
-          <p className="text-lg text-white/80">{about.bio}</p>
-          {about.highlights && (
-            <ul className="mt-6 space-y-2 text-sm text-white/70">
+    <div className="space-y-8">
+      {/* 个人简介 */}
+      <Section eyebrow="关于" title="个人简介">
+        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+          <p className="text-white/70">{about.bio}</p>
+          {about.highlights && about.highlights.length > 0 && (
+            <ul className="mt-4 space-y-1.5 text-sm text-white/50">
               {about.highlights.map((item: string) => (
-                <li key={item}>· {item}</li>
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-neon-400/60" />
+                  {item}
+                </li>
               ))}
             </ul>
           )}
-        </Card>
+        </div>
       </Section>
 
-      <Section eyebrow="Education" title="教育经历">
+      {/* 教育经历 */}
+      <Section eyebrow="教育" title="教育背景">
         {education.length === 0 ? (
-          <p className="text-sm text-white/60">教育经历尚未发布，敬请期待最新更新。</p>
+          <p className="text-sm text-white/40">暂无</p>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {education.map((edu) => (
-              <Card key={edu.id}>
-                <div className="flex flex-wrap items-center gap-3">
-                  <h3 className="text-xl font-semibold text-white">{edu.school}</h3>
-                  <Badge className="border-neon-400/40 text-neon-300">{edu.degree}</Badge>
+              <div key={edu.id} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-sm font-semibold text-white/80">
+                      {getInitials(edu.school)}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">{edu.school}</p>
+                      <p className="text-sm text-white/60">
+                        {edu.degree} · {edu.major}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-white/40">
+                    {formatDate(edu.startDate, "未定")} - {formatDate(edu.endDate, "至今")}
+                  </p>
                 </div>
-                <p className="mt-1 text-sm text-white/60">
-                  {edu.major} · {edu.location ?? "远程"} ·{" "}
-                  {formatDate(edu.startDate, "未知")} - {formatDate(edu.endDate, "至今")}
-                </p>
                 {edu.highlights.length > 0 && (
-                  <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-white/70">
+                  <ul className="mt-2 space-y-1 text-sm text-white/50">
                     {edu.highlights.map((h) => (
-                      <li key={h}>{h}</li>
+                      <li key={h}>· {h}</li>
                     ))}
                   </ul>
                 )}
-              </Card>
+              </div>
             ))}
           </div>
         )}
       </Section>
 
-      <Section eyebrow="Skillset" title="能力与工具矩阵">
-        <div className="grid gap-6 md:grid-cols-2">
+      {/* 技能 */}
+      <Section eyebrow="技能" title="技能栈">
+        <div className="grid gap-4 md:grid-cols-2">
           {skillGroups.map((group) => (
-            <Card key={group.title} className="bg-white/5">
-              <p className="text-sm uppercase tracking-[0.3em] text-white/60">{group.title}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
+            <div key={group.title} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+              <p className="mb-3 text-xs font-medium text-white/40">{group.title}</p>
+              <div className="flex flex-wrap gap-1.5">
                 {group.items.map((item) => (
-                  <Badge key={item} className="border-white/15 text-white/70">
+                  <span key={item} className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-white/60">
                     {item}
-                  </Badge>
+                  </span>
                 ))}
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </Section>
 
-      <Section eyebrow="Impact" title="数据化成果">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {metrics.map((metric) => (
-            <Card key={metric.id} className="bg-gradient-to-br from-ink-800 to-ink-900">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/60">
-                {metric.label}
-              </p>
-              <p className="mt-4 font-display text-4xl text-neon-300">{metric.value}</p>
-              {metric.description && (
-                <p className="mt-3 text-sm text-white/70">{metric.description}</p>
-              )}
-            </Card>
-          ))}
-        </div>
-      </Section>
+      {/* 关键成果 */}
+      {metrics.length > 0 && (
+        <Section eyebrow="成果" title="关键数据">
+          <div className="grid gap-4 md:grid-cols-3">
+            {metrics.map((metric) => (
+              <div key={metric.id} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 text-center">
+                <p className="font-display text-3xl font-bold text-neon-300">{metric.value}</p>
+                <p className="mt-1 text-xs text-white/40">{metric.label}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
     </div>
   );
 }
+
+
 

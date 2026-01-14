@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export function Section({
@@ -14,21 +16,63 @@ export function Section({
   children: ReactNode;
   className?: string;
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={cn("mx-auto max-w-6xl px-6 py-16", className)}>
-      <div className="mb-10 max-w-3xl">
-        {eyebrow && (
-          <p className="text-sm uppercase tracking-[0.25em] text-neon-300/70">
-            {eyebrow}
-          </p>
+    <section
+      ref={sectionRef}
+      className={cn("relative mx-auto max-w-5xl px-6 py-12", className)}
+    >
+      {/* Section Header */}
+      <div
+        className={cn(
+          "relative mb-8 transition-all duration-500",
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         )}
-        <h2 className="mt-3 font-display text-3xl text-white md:text-4xl">{title}</h2>
+      >
+        <div className="flex items-baseline gap-3">
+          {eyebrow && (
+            <span className="text-xs font-medium uppercase tracking-wider text-white/30">
+              {eyebrow}
+            </span>
+          )}
+          <h2 className="font-display text-2xl font-bold text-white md:text-3xl">
+            {title}
+          </h2>
+        </div>
         {description && (
-          <p className="mt-4 text-base text-white/70">{description}</p>
+          <p className="mt-2 text-sm text-white/50">{description}</p>
         )}
       </div>
-      {children}
+
+      {/* Section Content */}
+      <div
+        className={cn(
+          "relative transition-all duration-500 delay-100",
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+        )}
+      >
+        {children}
+      </div>
     </section>
   );
 }
-

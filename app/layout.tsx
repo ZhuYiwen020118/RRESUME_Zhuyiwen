@@ -3,18 +3,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "AI Media Resume | 人工智能与数字媒体作品集",
-    template: "%s | AI Media Resume"
+    default: "个人简历与作品集 | Portfolio",
+    template: "%s | Portfolio"
   },
   description:
-    "展示人工智能与数字媒体交叉背景的内容运营者，包括教育、经历、作品与可量化成果，支持后台实时更新。",
+    "个人简历与作品集，包含经历、作品、数据成果与联系方式，支持后台更新。",
   metadataBase: new URL("https://example.com"),
   openGraph: {
-    title: "AI Media Resume",
+    title: "个人简历与作品集",
     description:
-      "AI × 数字媒体 × 内容运营 —— 可后台维护的个人简历与作品集站点。",
+      "展示可验证的经历、作品、成果与联系方式的个人站点。",
     url: "https://example.com",
-    siteName: "AI Media Resume",
+    siteName: "Portfolio",
     images: [
       {
         url: "/og-image.svg",
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN">
-      <body className="bg-ink-950 text-white">{children}</body>
+    <html lang="zh-CN" className="scroll-smooth" data-theme="dark">
+      <body className="bg-animated bg-grid noise-overlay relative">{children}</body>
     </html>
   );
 }

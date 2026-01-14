@@ -12,22 +12,19 @@ export function ContactForm() {
   const [state, formAction] = useFormState(submitContact, initialState);
 
   return (
-    <form action={formAction} className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6">
+    <form action={formAction} className="space-y-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+      <h3 className="mb-4 text-sm font-medium text-white/60">发送消息</h3>
       <div>
-        <label className="text-sm text-white/70">姓名</label>
-        <Input name="name" placeholder="你的名字" />
+        <label className="text-xs text-white/40">姓名</label>
+        <Input name="name" placeholder="你的名字" className="mt-1" />
       </div>
       <div>
-        <label className="text-sm text-white/70">邮箱 *</label>
-        <Input name="email" type="email" placeholder="name@email.com" required />
+        <label className="text-xs text-white/40">邮箱 *</label>
+        <Input name="email" type="email" placeholder="name@email.com" required className="mt-1" />
       </div>
       <div>
-        <label className="text-sm text-white/70">联系方式</label>
-        <Input name="phone" placeholder="可选：微信号 / 手机" />
-      </div>
-      <div>
-        <label className="text-sm text-white/70">留言 *</label>
-        <Textarea name="message" rows={4} placeholder="想合作的项目 / 想了解的内容..." required />
+        <label className="text-xs text-white/40">留言 *</label>
+        <Textarea name="message" rows={3} placeholder="想了解的内容..." required className="mt-1" />
       </div>
       <Button type="submit" fullWidth>
         发送
@@ -37,9 +34,6 @@ export function ContactForm() {
           {state.message}
         </p>
       )}
-      <p className="text-center text-xs text-white/50">
-        提交内容会存储在数据库，方便及时跟进。
-      </p>
     </form>
   );
 }

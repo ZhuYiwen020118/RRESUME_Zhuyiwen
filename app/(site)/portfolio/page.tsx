@@ -1,48 +1,37 @@
 import { getPortfolioItems, getExternalLinks } from "@/lib/data";
 import { Section } from "@/components/section";
 import { PortfolioTabs } from "@/components/portfolio-tabs";
-import { Card } from "@/components/ui/card";
 
 export default async function PortfolioPage() {
   const [items, links] = await Promise.all([getPortfolioItems(), getExternalLinks()]);
 
   return (
-    <div className="space-y-20">
-      <Section
-        eyebrow="Portfolio"
-        title="多形态作品库"
-        description="PPT 方案、新闻稿、视频活动、数据报告等素材在同一视觉体系下展示，随时扩展。"
-      >
+    <div className="space-y-8">
+      <Section eyebrow="作品" title="作品集">
         <PortfolioTabs items={items} />
       </Section>
 
-      <Section eyebrow="Articles" title="外部报道 / 链接">
-        {links.length === 0 ? (
-          <p className="text-sm text-white/60">暂无新闻链接，稍后上线更多案例。</p>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+      {links.length > 0 && (
+        <Section eyebrow="报道" title="媒体报道">
+          <div className="grid gap-4 md:grid-cols-2">
             {links.map((link) => (
-              <Card key={link.id} className="bg-white/5">
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                  {link.platform ?? "媒介"}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold text-white">{link.title}</h3>
+              <a
+                key={link.id}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-white/10"
+              >
+                <p className="text-xs text-white/40">{link.platform}</p>
+                <h3 className="mt-1 font-medium text-white group-hover:text-neon-300">{link.title}</h3>
                 {link.summary && (
-                  <p className="mt-2 text-sm text-white/70">{link.summary}</p>
+                  <p className="mt-2 text-sm text-white/50 line-clamp-2">{link.summary}</p>
                 )}
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-flex text-sm text-neon-200"
-                >
-                  打开链接 →
-                </a>
-              </Card>
+              </a>
             ))}
           </div>
-        )}
-      </Section>
+        </Section>
+      )}
     </div>
   );
 }

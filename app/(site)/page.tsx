@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Section } from "@/components/section";
 import { HighlightGrid } from "@/components/highlight-grid";
 import { ExperienceList } from "@/components/experience-list";
+import { Card } from "@/components/ui/card";
 import {
   getHeroContent,
   getHighlightMetrics,
@@ -20,189 +21,196 @@ export default async function HomePage() {
     getPortfolioItems(),
     getExternalLinks()
   ]);
-  const spotlightMetrics = metrics.slice(0, 2);
   const heroAvatar =
     (hero as { avatar?: string })?.avatar ?? "/media/profile-placeholder.svg";
+  const safeSlogan =
+    hero.slogan === "AI × 数字媒体 × 内容运营"
+      ? "内容策略 · 数据驱动 · 增长实战"
+      : hero.slogan;
+  const featureProject = {
+    title: "政务热点全链路运营项目",
+    role: "项目负责人 · 策略/数据/交付",
+    time: "2024.03 - 2024.08",
+    content: "组建 6 人小组，完成选题、脚本、拍摄与剪辑，单期曝光破 2.2 亿；沉淀 SOP 与脚本模板，交付效率提升 40%。",
+    link: "/portfolio"
+  };
 
   return (
-    <div className="space-y-20">
-      <section className="relative mx-auto max-w-6xl overflow-hidden rounded-[44px] border border-white/10 bg-white/5 px-6 py-16 shadow-floating">
-        <div className="pointer-events-none absolute inset-0 opacity-60">
-          <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-neon-400/20 blur-[120px]" />
-          <div className="absolute right-6 bottom-0 h-48 w-48 rounded-full bg-indigo-500/30 blur-[100px]" />
+    <div className="relative">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden px-6 py-10">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-20 top-0 h-[300px] w-[300px] rounded-full bg-neon-400/8 blur-[100px]" />
+          <div className="absolute -right-20 bottom-0 h-[200px] w-[200px] rounded-full bg-indigo-500/8 blur-[80px]" />
         </div>
-        <div className="relative grid gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
-          <div className="space-y-8">
-            <div className="space-y-3">
-              <p className="text-sm uppercase tracking-[0.35em] text-neon-300/80">
-                AI MEDIA · PORTFOLIO
-              </p>
-              <h1 className="font-display text-4xl leading-tight text-white md:text-6xl">
-                {hero.name}
-              </h1>
-              <p className="text-2xl text-neon-200">{hero.slogan}</p>
-              <p className="text-base text-white/80">{hero.intro}</p>
-            </div>
-            <div className="flex flex-wrap gap-3 text-sm text-white/80">
-              {hero.tags?.map((tag: string) => (
-                <span key={tag} className="rounded-full border border-white/15 px-4 py-1">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <Button asChild>
-                <Link href="/resume">查看在线简历</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/portfolio">浏览作品集</Link>
-              </Button>
-            </div>
-            {spotlightMetrics.length > 0 && (
-              <div className="grid gap-4 md:grid-cols-2">
-                {spotlightMetrics.map((metric) => (
-                  <div
-                    key={metric.id}
-                    className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white/80"
-                  >
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/60">{metric.label}</p>
-                    <p className="mt-3 text-3xl font-display text-neon-200">{metric.value}</p>
-                    {metric.description && (
-                      <p className="mt-1 text-xs text-white/60">{metric.description}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/50">Current Focus</p>
-              <div className="mt-3 grid gap-2 text-white/70 md:grid-cols-2">
-                <p>· AI 叙事方式与多模态可视化表达</p>
-                <p>· 数据看板驱动的内容增长策略</p>
-                <p>· 跨平台热点运营与商业合作提案</p>
-                <p>· AIGC 流程沉淀与脚本模板化</p>
-              </div>
-            </div>
-          </div>
-          <div className="relative flex flex-col items-center gap-6">
-            <div className="relative w-full max-w-[300px]">
-              <div className="absolute -inset-2 rounded-[36px] bg-gradient-to-br from-neon-400/20 to-transparent blur-3xl" />
-              <div className="relative overflow-hidden rounded-[32px] border border-white/15 bg-ink-900">
+
+        <div className="relative mx-auto max-w-5xl">
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
+            {/* 头像 - 移动端在上，桌面端在左 */}
+            <div className="relative mx-auto w-[180px] flex-shrink-0 md:mx-0 md:w-[200px]">
+              <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-neon-400/15 to-indigo-500/15 blur-xl" />
+              <div className="relative overflow-hidden rounded-xl border border-white/10">
                 <Image
                   src={heroAvatar}
-                  alt={`${hero.name} portrait`}
-                  width={320}
-                  height={420}
-                  className="h-[380px] w-full object-cover"
+                  alt={hero.name}
+                  width={200}
+                  height={250}
+                  className="h-[230px] w-full object-cover md:h-[260px]"
                   priority
                 />
-                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 text-xs uppercase tracking-[0.4em] text-white/60">
-                  <span className="rounded-full bg-white/20 px-3 py-1">AI</span>
-                  <span className="rounded-full bg-white/20 px-3 py-1">MEDIA</span>
-                </div>
               </div>
             </div>
-            <div className="w-full max-w-[360px] space-y-3 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-5 text-sm text-white/80">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Recent Highlights</p>
+
+            {/* 内容 */}
+            <div className="flex-1 space-y-4 text-center md:text-left">
               <div className="space-y-2">
-                <p>· 策划 3 期政务热点，单期曝光破 2.2 亿</p>
-                <p>· 将 PPT 方案转为站内视频，平均节约 40% 交付时间</p>
-                <p>· 提供全栈 CMS，可随时更新 PDF / MP4 / 新闻链接</p>
+                <h1 className="font-display text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+                  {hero.name}
+                </h1>
+                <p className="text-lg text-neon-300 md:text-xl">{safeSlogan}</p>
+                <p className="text-sm leading-relaxed text-white/60 md:text-base">
+                  {hero.intro}
+                </p>
               </div>
+
+              {/* 标签 */}
+              <div className="flex flex-wrap justify-center gap-2 md:justify-start">
+                {hero.tags?.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 text-xs text-white/50"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* 按钮 */}
+              <div className="flex flex-wrap justify-center gap-2 pt-1 md:justify-start">
+                <Button asChild size="sm">
+                  <Link href="/resume">查看简历</Link>
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <Link href="/portfolio">作品集</Link>
+                </Button>
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/contact">联系我</Link>
+                </Button>
+              </div>
+
+              {/* 关键数据 */}
+              {metrics.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-6 border-t border-white/[0.06] pt-4 md:justify-start">
+                  {metrics.slice(0, 3).map((metric) => (
+                    <div key={metric.id} className="text-center md:text-left">
+                      <p className="font-display text-xl font-bold text-white">{metric.value}</p>
+                      <p className="text-xs text-white/40">{metric.label}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      <Section
-        eyebrow="Data Snapshot"
-        title="关键指标 & 结果导向"
-        description="以数据结果和方法论阐述内容价值：实时监测、策略复盘、对齐业务目标。"
-      >
-        <HighlightGrid metrics={metrics} />
-      </Section>
-
-      <Section
-        eyebrow="Experience"
-        title="多维经历 · AIGC × 新媒体"
-        description="精选经历覆盖热点运营、AIGC 生产、数据分析与视频制作。"
-      >
+      {/* 精选经历 */}
+      <Section eyebrow="经历" title="工作经历">
         <ExperienceList experiences={experiences} showFeaturedTag />
-        <div className="mt-8 text-right">
-          <Button asChild variant="ghost" className="text-sm text-white/70 hover:text-neon-300">
-            <Link href="/experience">查看全部经历 →</Link>
+        <div className="mt-6 text-right">
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/experience">查看全部 →</Link>
           </Button>
         </div>
       </Section>
 
-      <Section
-        eyebrow="Portfolio"
-        title="作品集快览"
-        description="覆盖方案与 PPT、新闻报道、视频活动、数据报告等多种形式。"
-      >
+      {/* 作品集 */}
+      <Section eyebrow="作品" title="作品集">
         {portfolio.length === 0 ? (
-          <p className="text-sm text-white/60">暂无作品，新的案例即将发布。</p>
+          <p className="text-sm text-white/50">暂无作品</p>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <Card className="flex flex-col p-5 bg-white/[0.02] border-white/10">
+              <span className="mb-3 w-fit rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-white/60">
+                项目经历
+              </span>
+              <h3 className="text-lg font-semibold text-white">{featureProject.title}</h3>
+              <p className="mt-1 text-sm text-white/60">{featureProject.role}</p>
+              <p className="text-xs text-white/40">{featureProject.time}</p>
+              <p className="mt-3 flex-1 text-sm text-white/60 whitespace-pre-line">
+                {featureProject.content}
+              </p>
+              <a
+                href={featureProject.link}
+                className="mt-4 text-sm text-neon-300 hover:underline"
+              >
+                查看详情 →
+              </a>
+            </Card>
+
             {portfolio.slice(0, 3).map((item) => (
-              <div key={item.id} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50">{item.kind}</p>
-                <h3 className="mt-3 text-xl font-semibold text-white">{item.title}</h3>
+              <Card key={item.id} className="flex flex-col p-5">
+                <span className="mb-3 w-fit rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-white/50">
+                  {item.kind}
+                </span>
+                <h3 className="font-semibold text-white">{item.title}</h3>
                 {item.description && (
-                  <p className="mt-2 text-sm text-white/70">{item.description}</p>
+                  <p className="mt-2 flex-1 text-sm text-white/50 line-clamp-2">{item.description}</p>
                 )}
-                <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/60">
-                  {item.tags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-white/10 px-3 py-1">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <Button asChild variant="outline" className="mt-5 text-xs">
-                  <a href={item.linkUrl} target="_blank" rel="noreferrer">
-                    查看作品
-                  </a>
-                </Button>
-              </div>
+                <a
+                  href={item.linkUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 text-sm text-neon-300 hover:underline"
+                >
+                  查看 →
+                </a>
+              </Card>
             ))}
           </div>
         )}
-        <div className="mt-8 text-right">
-          <Button asChild variant="ghost" className="text-sm text-white/70 hover:text-neon-200">
-            <Link href="/portfolio">进入作品库 →</Link>
+        <div className="mt-6 text-right">
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/portfolio">查看全部 →</Link>
           </Button>
         </div>
       </Section>
 
-      <Section
-        eyebrow="Media Coverage"
-        title="媒体报道 & 新闻链接"
-        description="真实案例来源于政务号、央媒客户端、品牌活动等渠道。"
-      >
-        {news.length === 0 ? (
-          <p className="text-sm text-white/60">暂无媒体链接，欢迎稍后查看。</p>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+      {/* 媒体报道 */}
+      {news.length > 0 && (
+        <Section eyebrow="报道" title="媒体报道">
+          <div className="grid gap-4 md:grid-cols-2">
             {news.slice(0, 4).map((link) => (
               <a
                 key={link.id}
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-3xl border border-white/10 bg-white/5/40 p-6 transition hover:border-neon-300/60"
+                className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-white/10 hover:bg-white/[0.04]"
               >
-                <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                  {link.platform ?? "媒体报道"}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold text-white">{link.title}</h3>
-                {link.summary && (
-                  <p className="mt-2 text-sm text-white/70 line-clamp-3">{link.summary}</p>
-                )}
+                <p className="text-xs text-white/40">{link.platform}</p>
+                <h3 className="mt-1 font-medium text-white group-hover:text-neon-300">{link.title}</h3>
               </a>
             ))}
           </div>
-        )}
-      </Section>
+        </Section>
+      )}
+
+      {/* CTA */}
+      <section className="mx-auto max-w-5xl px-6 py-12">
+        <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-r from-neon-400/5 to-indigo-500/5 p-8 text-center md:p-12">
+          <h2 className="font-display text-2xl font-bold text-white md:text-3xl">感兴趣？</h2>
+          <p className="mt-2 text-white/50">欢迎联系我洽谈合作</p>
+          <div className="mt-6 flex justify-center gap-3">
+            <Button asChild>
+              <Link href="/contact">联系我</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/resume">查看简历</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

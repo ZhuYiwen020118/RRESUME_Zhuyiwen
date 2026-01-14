@@ -58,7 +58,7 @@ async function main() {
 
 const defaultHero = {
   name: "张三",
-  slogan: "AI × 数字媒体 × 内容运营",
+  slogan: "内容策略 · 数据驱动 · 增长实战",
   intro: "聚焦 AIGC 与数据驱动的内容策略，擅长打造可复用的热点生产机制。",
   tags: ["热点运营", "数据分析", "AIGC 实践", "政务新媒体"]
 };
