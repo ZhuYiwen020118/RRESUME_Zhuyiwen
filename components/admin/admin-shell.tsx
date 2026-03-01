@@ -9,6 +9,7 @@ const navItems = [
   { href: "/admin/dashboard", label: "概览" },
   { href: "/admin/experience", label: "经历管理" },
   { href: "/admin/portfolio", label: "作品集" },
+  { href: "/admin/projects", label: "项目展示" },
   { href: "/admin/links", label: "外部链接" },
   { href: "/admin/content", label: "文案配置" }
 ];

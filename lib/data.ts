@@ -6,8 +6,10 @@ type HeroContent = {
   name: string;
   slogan: string;
   intro: string;
+  vividIntro: string;
   tags: string[];
   avatar?: string;
+  resumeUrl?: string;
 };
 
 type AboutContent = {
@@ -26,13 +28,17 @@ export const getHeroContent = cache(async (): Promise<HeroContent> => {
   const block = await prisma.contentBlock.findUnique({ where: { key: "hero" } });
   const payload = (block?.payload as Partial<HeroContent>) ?? {};
   return {
-    name: payload.name ?? "张三",
+    name: payload.name ?? "朱译文",
     slogan: payload.slogan ?? "内容策略 · 数据驱动 · 增长实战",
     intro:
       payload.intro ??
       "拥有人工智能与数字媒体背景，擅长将内容策略与数据增长结合。",
+    vividIntro:
+      payload.vividIntro ??
+      "hello，我叫朱译文，毕业于香港浸会大学，曾在南方都市报、腾讯等公司工作。",
     tags: payload.tags ?? ["热点运营", "数据驱动", "AIGC 实践"],
-    avatar: payload.avatar ?? "/media/profile-placeholder.svg"
+    avatar: payload.avatar ?? "/media/profile-placeholder.svg",
+    resumeUrl: payload.resumeUrl ?? ""
   };
 });
 
@@ -101,6 +107,12 @@ export const getExternalLinks = cache(async () => {
 
 export const getHighlightMetrics = cache(async () => {
   return prisma.highlightMetric.findMany({
+    orderBy: { orderIndex: "asc" }
+  });
+});
+
+export const getProjects = cache(async () => {
+  return prisma.project.findMany({
     orderBy: { orderIndex: "asc" }
   });
 });

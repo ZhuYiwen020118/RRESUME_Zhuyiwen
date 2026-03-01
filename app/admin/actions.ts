@@ -319,6 +319,35 @@ export async function deleteContactLink(id: string) {
   revalidatePath("/contact");
 }
 
+export async function saveProject(formData: FormData) {
+  const id = formData.get("id") as string | null;
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+  const coverUrl = formData.get("coverUrl") as string;
+  const linkUrl = formData.get("linkUrl") as string;
+  const orderIndex = parseInt(formData.get("orderIndex") as string) || 0;
+
+  const data = {
+    title,
+    description: description || null,
+    coverUrl: coverUrl || null,
+    linkUrl: linkUrl || null,
+    orderIndex
+  };
+
+  if (id) {
+    await prisma.project.update({ where: { id }, data });
+  } else {
+    await prisma.project.create({ data });
+  }
+  revalidatePath("/");
+}
+
+export async function deleteProject(id: string) {
+  await prisma.project.delete({ where: { id } });
+  revalidatePath("/");
+}
+
 function safeJson(payload?: string | null) {
   if (!payload) return null;
   try {

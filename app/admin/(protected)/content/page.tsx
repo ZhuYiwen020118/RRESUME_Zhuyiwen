@@ -19,8 +19,10 @@ type HeroPayload = {
   name?: string;
   slogan?: string;
   intro?: string;
+  vividIntro?: string;
   tags?: string[];
   avatar?: string;
+  resumeUrl?: string;
 };
 
 type AboutPayload = {
@@ -58,6 +60,13 @@ export default async function AdminContentPage() {
           <Input name="name" defaultValue={heroPayload?.name ?? ""} placeholder="姓名" required />
           <Input name="slogan" defaultValue={heroPayload?.slogan ?? ""} placeholder="Slogan" required />
           <Textarea
+            name="vividIntro"
+            className="md:col-span-2"
+            rows={2}
+            placeholder="生动的个人介绍（例如：hello，我叫朱译文，毕业于香港浸会大学...）"
+            defaultValue={heroPayload?.vividIntro ?? ""}
+          />
+          <Textarea
             name="intro"
             className="md:col-span-2"
             rows={3}
@@ -69,6 +78,12 @@ export default async function AdminContentPage() {
             className="md:col-span-2"
             placeholder="证件照或头像链接（例如 /media/profile.jpg）"
             defaultValue={heroPayload?.avatar ?? "/media/profile-placeholder.svg"}
+          />
+          <Input
+            name="resumeUrl"
+            className="md:col-span-2"
+            placeholder="简历下载链接（例如 /media/resume.pdf）"
+            defaultValue={heroPayload?.resumeUrl ?? ""}
           />
           <Input
             name="tags"
