@@ -45,13 +45,6 @@ export function SiteFooter() {
             联系我
           </Link>
         </div>
-
-        {/* Bottom */}
-        <div className="mt-8 border-t border-white/[0.06] pt-6 text-center">
-          <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} 朱译文 · Built with Next.js
-          </p>
-        </div>
       </div>
     </footer>
   );
