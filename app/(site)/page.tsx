@@ -27,10 +27,10 @@ export default async function HomePage() {
       ? "内容策略 · 数据驱动 · 增长实战"
       : hero.slogan;
   const featureProject = {
-    title: "政务热点全链路运营项目",
-    role: "项目负责人 · 策略/数据/交付",
-    time: "2024.03 - 2024.08",
-    content: "组建 6 人小组，完成选题、脚本、拍摄与剪辑，单期曝光破 2.2 亿；沉淀 SOP 与脚本模板，交付效率提升 40%。",
+    title: "南方都市报新闻撰写",
+    role: "",
+    time: "",
+    content: "",
     link: "/portfolio"
   };
 
