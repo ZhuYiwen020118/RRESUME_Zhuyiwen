@@ -52,10 +52,7 @@ export async function saveExperience(formData: FormData) {
     organization: formData.get("organization"),
     role: formData.get("role"),
     city: formData.get("city"),
-<<<<<<< HEAD
     logoUrl: formData.get("logoUrl"),
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
     domainTags: formData.get("domainTags"),
     startDate: formData.get("startDate"),
     endDate: formData.get("endDate"),
@@ -69,10 +66,7 @@ export async function saveExperience(formData: FormData) {
     organization: parsed.organization,
     role: parsed.role,
     city: parsed.city ?? null,
-<<<<<<< HEAD
     logoUrl: parsed.logoUrl || null,
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
     domainTags: parseTags(parsed.domainTags),
     startDate: parsed.startDate ? new Date(parsed.startDate) : null,
     endDate: parsed.endDate ? new Date(parsed.endDate) : null,
@@ -212,10 +206,7 @@ export async function saveEducation(formData: FormData) {
     degree: formData.get("degree"),
     major: formData.get("major"),
     location: formData.get("location"),
-<<<<<<< HEAD
     logoUrl: formData.get("logoUrl"),
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
     startDate: formData.get("startDate"),
     endDate: formData.get("endDate"),
     highlights: formData.get("highlights"),
@@ -227,10 +218,7 @@ export async function saveEducation(formData: FormData) {
     degree: parsed.degree,
     major: parsed.major ?? null,
     location: parsed.location ?? null,
-<<<<<<< HEAD
     logoUrl: parsed.logoUrl || null,
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
     startDate: parsed.startDate ? new Date(parsed.startDate) : null,
     endDate: parsed.endDate ? new Date(parsed.endDate) : null,
     highlights: parseTags(parsed.highlights),

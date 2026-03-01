@@ -112,10 +112,7 @@ export default async function AdminContentPage() {
           <Input name="degree" placeholder="学位 *" required />
           <Input name="major" placeholder="专业" />
           <Input name="location" placeholder="城市" />
-<<<<<<< HEAD
           <Input name="logoUrl" placeholder="学校Logo URL（可选）" />
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
           <Input name="startDate" type="date" placeholder="开始时间" />
           <Input name="endDate" type="date" placeholder="结束时间" />
           <Input name="orderIndex" type="number" placeholder="排序（越小越靠前）" />
@@ -152,10 +149,7 @@ export default async function AdminContentPage() {
                   <Input name="degree" defaultValue={edu.degree} />
                   <Input name="major" defaultValue={edu.major ?? ""} />
                   <Input name="location" defaultValue={edu.location ?? ""} />
-<<<<<<< HEAD
                   <Input name="logoUrl" placeholder="学校Logo URL（可选）" defaultValue={edu.logoUrl ?? ""} />
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
                   <Input
                     name="startDate"
                     type="date"

@@ -20,10 +20,7 @@ export default async function AdminExperiencePage() {
           <Input name="organization" placeholder="公司 / 机构名称 *" required />
           <Input name="role" placeholder="职位 *" required />
           <Input name="city" placeholder="城市" />
-<<<<<<< HEAD
           <Input name="logoUrl" placeholder="公司Logo URL（可选）" />
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
           <Input name="domainTags" placeholder="标签，逗号分隔" />
           <Input name="startDate" type="date" placeholder="开始时间" />
           <Input name="endDate" type="date" placeholder="结束时间" />
@@ -79,10 +76,7 @@ export default async function AdminExperiencePage() {
                   <Input name="organization" defaultValue={exp.organization} />
                   <Input name="role" defaultValue={exp.role} />
                   <Input name="city" defaultValue={exp.city ?? ""} />
-<<<<<<< HEAD
                   <Input name="logoUrl" placeholder="公司Logo URL（可选）" defaultValue={exp.logoUrl ?? ""} />
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
                   <Input name="domainTags" defaultValue={exp.domainTags.join(", ")} />
                   <Input
                     name="startDate"

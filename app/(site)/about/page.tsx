@@ -1,10 +1,7 @@
 import { Section } from "@/components/section";
 import { getAboutContent, getEducation, getHighlightMetrics } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
-<<<<<<< HEAD
 import Image from "next/image";
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
 
 const skillGroups = [
   {
@@ -66,7 +63,6 @@ export default async function AboutPage() {
               <div key={edu.id} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-<<<<<<< HEAD
                     {edu.logoUrl ? (
                       <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
                         <Image
@@ -82,11 +78,6 @@ export default async function AboutPage() {
                         {getInitials(edu.school)}
                       </div>
                     )}
-=======
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-sm font-semibold text-white/80">
-                      {getInitials(edu.school)}
-                    </div>
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
                     <div>
                       <p className="font-semibold text-white">{edu.school}</p>
                       <p className="text-sm text-white/60">

@@ -1,8 +1,5 @@
 import Link from "next/link";
-<<<<<<< HEAD
 import Image from "next/image";
-=======
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
 import { Button } from "@/components/ui/button";
 import {
   getHeroContent,
@@ -67,7 +64,6 @@ export default async function ResumePage() {
 
           <section className="mt-6 space-y-3">
             <h2 className="text-xs font-medium uppercase tracking-wider text-white/40">工作经历</h2>
-<<<<<<< HEAD
             {experiences.map((exp) => {
               const getInitials = (text: string) => {
                 if (!text) return "·";
@@ -101,42 +97,24 @@ export default async function ResumePage() {
                       {formatDate(exp.startDate, "未定")} - {formatDate(exp.endDate, "至今")}
                     </p>
                   </div>
-=======
-            {experiences.map((exp) => (
-              <article key={exp.id} className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-4">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <div>
-                    <h3 className="font-semibold text-white">{exp.role}</h3>
-                    <p className="text-sm text-neon-300">{exp.organization}</p>
-                  </div>
-                  <p className="text-xs text-white/40">
-                    {formatDate(exp.startDate, "未定")} - {formatDate(exp.endDate, "至今")}
-                  </p>
-                </div>
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
-                {exp.summary && <p className="mt-2 text-sm text-white/60">{exp.summary}</p>}
-                {exp.achievements.length > 0 && (
-                  <ul className="mt-2 space-y-1 text-sm text-white/50">
-                    {exp.achievements.map((item) => (
-                      <li key={item} className="flex items-start gap-1.5">
-                        <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-neon-400/60" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </article>
-<<<<<<< HEAD
+                  {exp.summary && <p className="mt-2 text-sm text-white/60">{exp.summary}</p>}
+                  {exp.achievements.length > 0 && (
+                    <ul className="mt-2 space-y-1 text-sm text-white/50">
+                      {exp.achievements.map((item) => (
+                        <li key={item} className="flex items-start gap-1.5">
+                          <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-neon-400/60" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
               );
             })}
-=======
-            ))}
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
           </section>
 
           <section className="mt-6 space-y-3">
             <h2 className="text-xs font-medium uppercase tracking-wider text-white/40">教育背景</h2>
-<<<<<<< HEAD
             {education.map((edu) => {
               const getInitials = (text: string) => {
                 if (!text) return "·";
@@ -170,34 +148,16 @@ export default async function ResumePage() {
                       {formatDate(edu.startDate, "未定")} - {formatDate(edu.endDate, "至今")}
                     </p>
                   </div>
-=======
-            {education.map((edu) => (
-              <div key={edu.id} className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <p className="font-semibold text-white">{edu.school}</p>
-                    <p className="text-sm text-white/60">{edu.degree} · {edu.major}</p>
-                  </div>
-                  <p className="text-xs text-white/40">
-                    {formatDate(edu.startDate, "未定")} - {formatDate(edu.endDate, "至今")}
-                  </p>
-                </div>
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
-                {edu.highlights.length > 0 && (
-                  <ul className="mt-2 space-y-1 text-sm text-white/50">
-                    {edu.highlights.map((highlight) => (
-                      <li key={highlight}>· {highlight}</li>
-                    ))}
-                  </ul>
-                )}
-<<<<<<< HEAD
+                  {edu.highlights.length > 0 && (
+                    <ul className="mt-2 space-y-1 text-sm text-white/50">
+                      {edu.highlights.map((highlight) => (
+                        <li key={highlight}>· {highlight}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               );
             })}
-=======
-              </div>
-            ))}
->>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
           </section>
         </div>
 
