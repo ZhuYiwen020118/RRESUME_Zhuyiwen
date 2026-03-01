@@ -35,7 +35,10 @@ model Education {
   major       String?
   majorEn     String?
   location    String?
+<<<<<<< HEAD
   logoUrl     String?
+=======
+>>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
   startDate   DateTime?
   endDate     DateTime?
   highlights  String[]
@@ -51,7 +54,10 @@ model Experience {
   role          String
   roleEn        String?
   city          String?
+<<<<<<< HEAD
   logoUrl       String?
+=======
+>>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
   domainTags    String[]
   startDate     DateTime?
   endDate       DateTime?

@@ -1,7 +1,10 @@
 import { Experience } from "@prisma/client";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+>>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
 
 export function ExperienceList({
   experiences,
@@ -29,6 +32,7 @@ export function ExperienceList({
           {/* 头部 */}
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex items-center gap-3">
+<<<<<<< HEAD
               {item.logoUrl ? (
                 <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
                   <Image
@@ -44,6 +48,11 @@ export function ExperienceList({
                   {getInitials(item.organization ?? item.role)}
                 </div>
               )}
+=======
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-sm font-semibold text-white/80">
+                {getInitials(item.organization ?? item.role)}
+              </div>
+>>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold text-white">{item.role}</h3>

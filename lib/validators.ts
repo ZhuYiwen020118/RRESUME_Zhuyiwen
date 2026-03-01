@@ -10,7 +10,10 @@ export const experienceSchema = z.object({
   organization: z.string().min(1),
   role: z.string().min(1),
   city: z.string().optional(),
+<<<<<<< HEAD
   logoUrl: z.string().optional(),
+=======
+>>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
   domainTags: z.string().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
@@ -62,7 +65,10 @@ export const educationSchema = z.object({
   degree: z.string().min(1),
   major: z.string().optional(),
   location: z.string().optional(),
+<<<<<<< HEAD
   logoUrl: z.string().optional(),
+=======
+>>>>>>> cc29bea2b18bc95b8592c27ce452157ff7a64034
   startDate: z.string().optional(),
   endDate: z.string().optional(),
   highlights: z.string().optional(),
