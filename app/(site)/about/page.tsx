@@ -64,17 +64,17 @@ export default async function AboutPage() {
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     {edu.logoUrl ? (
-                      <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                      <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
                         <Image
                           src={edu.logoUrl}
                           alt={edu.school}
                           fill
-                          className="object-contain p-1.5"
-                          sizes="44px"
+                          className="object-cover"
+                          sizes="48px"
                         />
                       </div>
                     ) : (
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-sm font-semibold text-white/80">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-sm font-semibold text-white/80">
                         {getInitials(edu.school)}
                       </div>
                     )}
