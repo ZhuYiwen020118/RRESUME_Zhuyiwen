@@ -74,17 +74,17 @@ export default async function ResumePage() {
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div className="flex items-center gap-2">
                       {exp.logoUrl ? (
-                        <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
+                        <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
                           <Image
                             src={exp.logoUrl}
                             alt={exp.organization}
                             fill
-                            className="object-contain p-1"
-                            sizes="32px"
+                            className="object-cover"
+                            sizes="40px"
                           />
                         </div>
                       ) : (
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-xs font-semibold text-white/80">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-sm font-semibold text-white/80">
                           {getInitials(exp.organization ?? exp.role)}
                         </div>
                       )}
@@ -125,17 +125,17 @@ export default async function ResumePage() {
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       {edu.logoUrl ? (
-                        <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
+                        <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
                           <Image
                             src={edu.logoUrl}
                             alt={edu.school}
                             fill
-                            className="object-contain p-1"
-                            sizes="32px"
+                            className="object-cover"
+                            sizes="40px"
                           />
                         </div>
                       ) : (
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-xs font-semibold text-white/80">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-sm font-semibold text-white/80">
                           {getInitials(edu.school)}
                         </div>
                       )}
