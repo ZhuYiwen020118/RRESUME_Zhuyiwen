@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +17,7 @@ export default async function ResumePage() {
     getExperiences(),
     getHighlightMetrics()
   ]);
-  const resumePdf = "/media/resume-sample.pdf";
+  const resumePdf = hero.resumeUrl || "/media/resume-sample.pdf";
 
   return (
     <div className="py-10 text-white">
@@ -30,9 +29,9 @@ export default async function ResumePage() {
               <p className="text-neon-300">{hero.slogan}</p>
             </div>
             <Button asChild variant="outline">
-              <Link href={resumePdf} target="_blank">
+              <a href={resumePdf} download>
                 下载 PDF
-              </Link>
+              </a>
             </Button>
           </header>
 
@@ -170,16 +169,16 @@ export default async function ResumePage() {
               className="h-full w-full"
             >
               <p className="p-4 text-sm text-white/60">
-                <a className="underline" href={resumePdf} target="_blank" rel="noreferrer">
+                <a className="underline" href={resumePdf} download>
                   点击下载 PDF
                 </a>
               </p>
             </object>
           </div>
           <Button asChild variant="outline" className="mt-4 w-full">
-            <Link href={resumePdf} target="_blank">
+            <a href={resumePdf} download>
               下载 PDF
-            </Link>
+            </a>
           </Button>
         </div>
       </div>
