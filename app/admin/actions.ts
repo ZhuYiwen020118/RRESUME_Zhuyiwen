@@ -182,7 +182,6 @@ export async function saveHeroContent(formData: FormData) {
     create: { key: "hero", payload: { ...parsed, tags: parseTags(parsed.tags) } }
   });
   revalidatePath("/");
-  revalidatePath("/resume");
 }
 
 export async function saveAboutContent(formData: FormData) {
@@ -196,7 +195,6 @@ export async function saveAboutContent(formData: FormData) {
     create: { key: "about", payload: { ...parsed, highlights: parseTags(parsed.highlights) } }
   });
   revalidatePath("/about");
-  revalidatePath("/resume");
 }
 
 export async function saveEducation(formData: FormData) {
@@ -231,13 +229,11 @@ export async function saveEducation(formData: FormData) {
     await prisma.education.create({ data });
   }
   revalidatePath("/about");
-  revalidatePath("/resume");
 }
 
 export async function deleteEducation(id: string) {
   await prisma.education.delete({ where: { id } });
   revalidatePath("/about");
-  revalidatePath("/resume");
 }
 
 export async function saveMetric(formData: FormData) {
@@ -263,14 +259,12 @@ export async function saveMetric(formData: FormData) {
   }
   revalidatePath("/");
   revalidatePath("/about");
-  revalidatePath("/resume");
 }
 
 export async function deleteMetric(id: string) {
   await prisma.highlightMetric.delete({ where: { id } });
   revalidatePath("/");
   revalidatePath("/about");
-  revalidatePath("/resume");
 }
 
 export async function saveContact(formData: FormData) {

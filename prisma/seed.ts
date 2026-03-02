@@ -149,12 +149,12 @@ const defaultMetrics = [
 
 const defaultPortfolio = [
   {
-    title: "2024 城市气象热点运营方案",
+    title: "2024 城市气象热点运营方案（PDF）",
     kind: PortfolioKind.PRESENTATION,
     description: "结合气象热点与 GPT 生成内容的多平台运营策略。",
     coverUrl: null,
-    linkUrl: "/media/resume-sample.pdf",
-    downloadUrl: "/media/resume-sample.pdf",
+    linkUrl: "/media/strategy-2024.pdf",
+    downloadUrl: "/media/strategy-2024.pdf",
     tags: ["运营方案", "AIGC"],
     priority: 10
   },

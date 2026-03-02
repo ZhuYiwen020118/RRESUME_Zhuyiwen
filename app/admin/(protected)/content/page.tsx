@@ -22,7 +22,6 @@ type HeroPayload = {
   vividIntro?: string;
   tags?: string[];
   avatar?: string;
-  resumeUrl?: string;
 };
 
 type AboutPayload = {
@@ -52,10 +51,7 @@ export default async function AdminContentPage() {
 
   return (
     <div className="space-y-10">
-      <FormCard
-        title="首页头屏文案"
-        description="包含姓名、Slogan、标签与简介，前台首页与简历页共用。"
-      >
+      <FormCard title="首页头屏文案" description="包含姓名、Slogan、标签与简介，前台首页共用。">
         <form action={saveHeroContent} className="grid gap-4 md:grid-cols-2">
           <Input name="name" defaultValue={heroPayload?.name ?? ""} placeholder="姓名" required />
           <Input name="slogan" defaultValue={heroPayload?.slogan ?? ""} placeholder="Slogan" required />
@@ -78,12 +74,6 @@ export default async function AdminContentPage() {
             className="md:col-span-2"
             placeholder="证件照或头像链接（例如 /media/profile.jpg）"
             defaultValue={heroPayload?.avatar ?? "/media/profile-placeholder.svg"}
-          />
-          <Input
-            name="resumeUrl"
-            className="md:col-span-2"
-            placeholder="简历下载链接（例如 /media/resume.pdf）"
-            defaultValue={heroPayload?.resumeUrl ?? ""}
           />
           <Input
             name="tags"
@@ -194,7 +184,7 @@ export default async function AdminContentPage() {
 
       <FormCard
         title="核心指标卡片"
-        description="展示在首页 / 关于 / 简历页，用于突出可量化成果。"
+        description="展示在首页 / 关于页，用于突出可量化成果。"
       >
         <form action={saveMetric} className="grid gap-4 md:grid-cols-2">
           <Input name="label" placeholder="指标名称 *" required />

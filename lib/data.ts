@@ -9,7 +9,6 @@ type HeroContent = {
   vividIntro: string;
   tags: string[];
   avatar?: string;
-  resumeUrl?: string;
 };
 
 type AboutContent = {
@@ -37,8 +36,7 @@ export const getHeroContent = cache(async (): Promise<HeroContent> => {
       payload.vividIntro ??
       "hello，我叫朱译文，毕业于香港浸会大学，曾在南方都市报、腾讯等公司工作。",
     tags: payload.tags ?? ["热点运营", "数据驱动", "AIGC 实践"],
-    avatar: payload.avatar ?? "/media/profile-placeholder.svg",
-    resumeUrl: payload.resumeUrl ?? ""
+    avatar: payload.avatar ?? "/media/profile-placeholder.svg"
   };
 });
 

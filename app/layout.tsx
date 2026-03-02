@@ -3,16 +3,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "个人简历与作品集 | Portfolio",
+    default: "个人作品集 | Portfolio",
     template: "%s | Portfolio"
   },
-  description:
-    "个人简历与作品集，包含经历、作品、数据成果与联系方式，支持后台更新。",
+  description: "个人作品集站点，包含经历、作品、数据成果与联系方式，支持后台更新。",
   metadataBase: new URL("https://example.com"),
   openGraph: {
-    title: "个人简历与作品集",
-    description:
-      "展示可验证的经历、作品、成果与联系方式的个人站点。",
+    title: "个人作品集",
+    description: "展示可验证的经历、作品、成果与联系方式的个人站点。",
     url: "https://example.com",
     siteName: "Portfolio",
     images: [

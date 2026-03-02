@@ -11,7 +11,6 @@ const navItems = [
   { href: "/about", label: "关于我" },
   { href: "/experience", label: "工作经历" },
   { href: "/portfolio", label: "作品集" },
-  { href: "/resume", label: "简历" },
   { href: "/contact", label: "联系方式" }
 ];
 
