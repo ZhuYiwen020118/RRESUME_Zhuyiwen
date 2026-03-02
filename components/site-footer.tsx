@@ -37,6 +37,12 @@ export function SiteFooter() {
               作品集
             </Link>
             <Link
+              href="/#news"
+              className="text-sm text-white/40 transition-colors hover:text-white/70"
+            >
+              媒体报道
+            </Link>
+            <Link
               href="/#interests"
               className="text-sm text-white/40 transition-colors hover:text-white/70"
             >

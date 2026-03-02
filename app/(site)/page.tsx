@@ -8,7 +8,8 @@ import {
   getProjects,
   getContactContent,
   getAboutContent,
-  getHighlightMetrics
+  getHighlightMetrics,
+  getExternalLinks
 } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
@@ -32,7 +33,7 @@ const skillGroups = [
 ];
 
 export default async function HomePage() {
-  const [hero, education, experiences, portfolio, projects, contact, about, metrics] = await Promise.all([
+  const [hero, education, experiences, portfolio, projects, contact, about, metrics, links] = await Promise.all([
     getHeroContent(),
     getEducation(),
     getExperiences(),
@@ -40,7 +41,8 @@ export default async function HomePage() {
     getProjects(),
     getContactContent(),
     getAboutContent(),
-    getHighlightMetrics()
+    getHighlightMetrics(),
+    getExternalLinks()
   ]);
 
   const heroAvatar = hero.avatar ?? "/media/profile-placeholder.svg";
@@ -213,6 +215,32 @@ export default async function HomePage() {
                       <p className="mt-1 line-clamp-2 text-sm text-white/50">{item.description}</p>
                     )}
                   </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* News / Reports Section */}
+      {links.length > 0 && (
+        <section id="news" className="px-6 py-12">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-8 font-display text-2xl font-bold text-white">媒体报道</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {links.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-white/10"
+                >
+                  <p className="text-xs text-white/40">{link.platform}</p>
+                  <h3 className="mt-1 font-medium text-white group-hover:text-neon-300">{link.title}</h3>
+                  {link.summary && (
+                    <p className="mt-2 text-sm text-white/50 line-clamp-2">{link.summary}</p>
+                  )}
                 </a>
               ))}
             </div>

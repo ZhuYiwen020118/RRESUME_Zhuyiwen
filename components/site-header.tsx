@@ -15,6 +15,7 @@ const navItems: NavItem[] = [
   { id: "education", label: "教育背景" },
   { id: "experience", label: "工作经历" },
   { id: "portfolio", label: "作品集" },
+  { id: "news", label: "媒体报道" },
   { id: "interests", label: "兴趣爱好" },
   { id: "contact", label: "联系我" }
 ];
@@ -59,7 +60,14 @@ export function SiteHeader({ slogan = "内容策略 · 数据驱动 · 增长实
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
     setOpen(false);
   };
