@@ -1,37 +1,65 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Section } from "@/components/section";
 import {
   getHeroContent,
   getEducation,
   getExperiences,
   getPortfolioItems,
   getProjects,
-  getContactContent
+  getContactContent,
+  getAboutContent,
+  getHighlightMetrics
 } from "@/lib/data";
+import { formatDate } from "@/lib/utils";
+
+const skillGroups = [
+  {
+    title: "数据与编程",
+    items: ["Python", "SQL", "Tableau", "Metabase", "Power BI"]
+  },
+  {
+    title: "AIGC & 自动化",
+    items: ["ChatGPT", "Midjourney", "Runway", "Prompt 编排", "工作流自动化"]
+  },
+  {
+    title: "音视频制作",
+    items: ["Premiere", "Final Cut", "After Effects", "CapCut", "Audition"]
+  },
+  {
+    title: "内容排版",
+    items: ["Notion", "Figma", "Canva", "Office 套件", "Trello"]
+  }
+];
 
 export default async function HomePage() {
-  const [hero, education, experiences, portfolio, projects, contact] = await Promise.all([
+  const [hero, education, experiences, portfolio, projects, contact, about, metrics] = await Promise.all([
     getHeroContent(),
     getEducation(),
     getExperiences(),
     getPortfolioItems(),
     getProjects(),
-    getContactContent()
+    getContactContent(),
+    getAboutContent(),
+    getHighlightMetrics()
   ]);
 
   const heroAvatar = hero.avatar ?? "/media/profile-placeholder.svg";
 
+  const getInitials = (text: string) => {
+    if (!text) return "·";
+    return text.slice(0, 2).toUpperCase();
+  };
+
   return (
     <div className="relative min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden px-6 py-16 md:py-24">
+      <section id="home" className="relative min-h-screen flex items-center overflow-hidden px-6 py-16">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-0 h-[300px] w-[300px] rounded-full bg-neon-400/8 blur-[100px]" />
           <div className="absolute -right-20 bottom-0 h-[200px] w-[200px] rounded-full bg-indigo-500/8 blur-[80px]" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-6xl w-full">
           <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16">
             {/* Left - Vivid Introduction */}
             <div className="flex-1 text-center md:text-left">
@@ -41,11 +69,6 @@ export default async function HomePage() {
               <p className="mt-6 text-lg text-white/70 md:text-xl">
                 {hero.intro}
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
-                <Button asChild variant="outline">
-                  <Link href="/contact">联系我</Link>
-                </Button>
-              </div>
             </div>
 
             {/* Right - Large Photo */}
@@ -66,28 +89,49 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Education Section */}
+      {/* Education Section - Using About Page Style */}
       {education.length > 0 && (
-        <section className="px-6 py-12">
-          <div className="mx-auto max-w-6xl">
+        <section id="education" className="px-6 py-12">
+          <div className="mx-auto max-w-5xl">
             <h2 className="mb-8 font-display text-2xl font-bold text-white">教育背景</h2>
-            <div className="flex flex-wrap gap-4">
+            <div className="space-y-4">
               {education.map((edu) => (
-                <div
-                  key={edu.id}
-                  className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2"
-                >
-                  {edu.logoUrl && (
-                    <Image
-                      src={edu.logoUrl}
-                      alt={edu.school}
-                      width={24}
-                      height={24}
-                      className="h-6 w-6 rounded object-contain"
-                    />
+                <div key={edu.id} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      {edu.logoUrl ? (
+                        <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                          <Image
+                            src={edu.logoUrl}
+                            alt={edu.school}
+                            fill
+                            className="object-cover"
+                            sizes="48px"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-sm font-semibold text-white/80">
+                          {getInitials(edu.school)}
+                        </div>
+                      )}
+                      <div>
+                        <p className="font-semibold text-white">{edu.school}</p>
+                        <p className="text-sm text-white/60">
+                          {edu.degree} · {edu.major}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-white/40">
+                      {formatDate(edu.startDate, "未定")} - {formatDate(edu.endDate, "至今")}
+                    </p>
+                  </div>
+                  {edu.highlights.length > 0 && (
+                    <ul className="mt-2 space-y-1 text-sm text-white/50">
+                      {edu.highlights.map((h) => (
+                        <li key={h}>· {h}</li>
+                      ))}
+                    </ul>
                   )}
-                  <span className="text-sm text-white/80">{edu.school}</span>
-                  <span className="text-xs text-white/40">{edu.degree}</span>
                 </div>
               ))}
             </div>
@@ -95,17 +139,17 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Internship Timeline */}
+      {/* Experience Section */}
       {experiences.length > 0 && (
-        <section className="px-6 py-12">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="mb-8 font-display text-2xl font-bold text-white">实习经历</h2>
+        <section id="experience" className="px-6 py-12">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-8 font-display text-2xl font-bold text-white">工作经历</h2>
             <div className="relative border-l border-white/10 pl-8">
               {experiences.map((exp, index) => (
                 <div key={exp.id} className="relative mb-8 last:mb-0">
                   {/* Timeline dot */}
                   <div className="absolute -left-[33px] top-2 h-3 w-3 rounded-full bg-neon-400 ring-4 ring-white/5" />
-                  
+
                   <div className="flex items-start gap-4">
                     {exp.logoUrl && (
                       <div className="flex-shrink-0">
@@ -141,8 +185,8 @@ export default async function HomePage() {
 
       {/* Portfolio Section */}
       {portfolio.length > 0 && (
-        <section className="px-6 py-12">
-          <div className="mx-auto max-w-6xl">
+        <section id="portfolio" className="px-6 py-12">
+          <div className="mx-auto max-w-5xl">
             <h2 className="mb-8 font-display text-2xl font-bold text-white">作品集</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {portfolio.slice(0, 6).map((item) => (
@@ -176,48 +220,49 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Projects Section */}
-      {projects.length > 0 && (
-        <section className="px-6 py-12">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="mb-8 font-display text-2xl font-bold text-white">项目展示</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project) => (
-                <a
-                  key={project.id}
-                  href={project.linkUrl || '#'}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group block overflow-hidden rounded-xl border border-white/10 bg-white/5 transition-all hover:border-white/20 hover:bg-white/10"
-                >
-                  {project.coverUrl && (
-                    <div className="relative h-48 w-full overflow-hidden">
-                      <Image
-                        src={project.coverUrl}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="p-4">
-                    <h3 className="font-semibold text-white group-hover:text-neon-300">{project.title}</h3>
-                    {project.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-white/50">{project.description}</p>
-                    )}
-                  </div>
-                </a>
-              ))}
-            </div>
+      {/* Interests / Hobbies Section */}
+      <section id="interests" className="px-6 py-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="mb-8 font-display text-2xl font-bold text-white">兴趣爱好</h2>
+
+          {/* Bio from About Page */}
+          <div className="mb-8 rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+            <p className="text-white/70">{about.bio}</p>
+            {about.highlights && about.highlights.length > 0 && (
+              <ul className="mt-4 space-y-1.5 text-sm text-white/50">
+                {about.highlights.map((item: string) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-neon-400/60" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-        </section>
-      )}
+
+          {/* Skills */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {skillGroups.map((group) => (
+              <div key={group.title} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+                <p className="mb-3 text-xs font-medium text-white/40">{group.title}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <span key={item} className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-white/60">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Contact Section */}
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-6xl text-center">
-          <h2 className="font-display text-2xl font-bold text-white">联系我</h2>
-          <p className="mt-2 text-white/60">期待与您的交流与合作</p>
+      <section id="contact" className="px-6 py-16">
+        <div className="mx-auto max-w-5xl text-center">
+          <h2 className="mb-8 font-display text-2xl font-bold text-white">联系我</h2>
+          <p className="text-white/60">期待与您的交流与合作</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             {contact.email && (
               <a

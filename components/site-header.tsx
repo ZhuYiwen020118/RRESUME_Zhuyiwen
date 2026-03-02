@@ -1,23 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const navItems = [
-  { href: "/", label: "首页" },
-  { href: "/about", label: "关于我" },
-  { href: "/experience", label: "工作经历" },
-  { href: "/portfolio", label: "作品集" },
-  { href: "/contact", label: "联系方式" }
+type NavItem = {
+  id: string;
+  label: string;
+};
+
+const navItems: NavItem[] = [
+  { id: "home", label: "首页" },
+  { id: "education", label: "教育背景" },
+  { id: "experience", label: "工作经历" },
+  { id: "portfolio", label: "作品集" },
+  { id: "interests", label: "兴趣爱好" },
+  { id: "contact", label: "联系我" }
 ];
 
-export function SiteHeader() {
-  const pathname = usePathname();
+interface SiteHeaderProps {
+  slogan?: string;
+}
+
+export function SiteHeader({ slogan = "内容策略 · 数据驱动 · 增长实战" }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,43 +36,70 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Track active section on scroll
+  useEffect(() => {
+    const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach(section => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setOpen(false);
+  };
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-all duration-500",
+        "fixed left-0 right-0 top-0 z-50 transition-all duration-500",
         scrolled
           ? "border-b border-white/10 bg-ink-950/90 backdrop-blur-xl shadow-lg shadow-ink-950/50"
           : "bg-transparent"
       )}
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-        {/* Logo - 简洁的名字 */}
-        <Link
-          href="/"
+        {/* Logo - Slogan */}
+        <button
+          onClick={() => scrollToSection("home")}
           className="group font-display text-xl font-bold tracking-tight text-sky-400"
         >
-          <span className="transition-colors group-hover:text-sky-300">朱译文</span>
-          <span className="ml-2 text-xs font-normal text-white/40">Portfolio</span>
-        </Link>
+          <span className="transition-colors group-hover:text-sky-300">{slogan}</span>
+        </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-4 md:flex">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
               className={cn(
                 "relative text-sm transition-all duration-300",
-                pathname === item.href
+                activeSection === item.id
                   ? "text-white font-medium"
                   : "text-white/50 hover:text-white/80"
               )}
             >
               {item.label}
-              {pathname === item.href && (
+              {activeSection === item.id && (
                 <span className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-neon-400/80 to-transparent" />
               )}
-            </Link>
+            </button>
           ))}
           <ThemeToggle className="ml-2" />
         </nav>
@@ -109,19 +145,18 @@ export function SiteHeader() {
       >
         <div className="flex flex-col gap-1 px-6 py-3">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
               className={cn(
                 "rounded-lg px-3 py-2.5 text-sm transition-all duration-300",
-                pathname === item.href
+                activeSection === item.id
                   ? "bg-white/5 text-white"
                   : "text-white/60 hover:text-white"
               )}
-              onClick={() => setOpen(false)}
             >
               {item.label}
-            </Link>
+            </button>
           ))}
         </div>
       </div>
