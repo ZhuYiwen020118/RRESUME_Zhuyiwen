@@ -65,10 +65,10 @@ export default async function HomePage() {
           <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16">
             {/* Left - Vivid Introduction */}
             <div className="flex-1 text-center md:text-left">
-              <h1 className="font-display text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+              <h1 className="font-display text-2xl font-bold text-white md:text-3xl lg:text-4xl whitespace-pre-wrap">
                 {hero.vividIntro || `hello，我叫${hero.name}，毕业于香港浸会大学。`}
               </h1>
-              <p className="mt-6 text-lg text-white/70 md:text-xl">
+              <p className="mt-4 text-base text-white/70 md:text-lg whitespace-pre-wrap">
                 {hero.intro}
               </p>
             </div>

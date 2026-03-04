@@ -54,7 +54,7 @@ export default async function AdminContentPage() {
       <FormCard title="首页头屏文案" description="包含姓名、Slogan、标签与简介，前台首页共用。">
         <form action={saveHeroContent} className="grid gap-4 md:grid-cols-2">
           <Input name="name" defaultValue={heroPayload?.name ?? ""} placeholder="姓名" required />
-          <Input name="slogan" defaultValue={heroPayload?.slogan ?? ""} placeholder="Slogan" required />
+          <Input name="slogan" defaultValue={heroPayload?.slogan ?? ""} placeholder="Slogan（选填）" />
           <Textarea
             name="vividIntro"
             className="md:col-span-2"

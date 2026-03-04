@@ -45,7 +45,7 @@ export const externalLinkSchema = z.object({
 
 export const heroSchema = z.object({
   name: z.string().min(1),
-  slogan: z.string().min(1),
+  slogan: z.string().optional(),
   // 简短介绍与生动介绍允许留空，由前端使用默认文案兜底
   intro: z.string().optional(),
   vividIntro: z.string().optional(),
