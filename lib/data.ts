@@ -29,13 +29,12 @@ export const getHeroContent = cache(async (): Promise<HeroContent> => {
   return {
     name: payload.name ?? "朱译文",
     slogan: payload.slogan ?? "内容策略 · 数据驱动 · 增长实战",
-    intro:
-      payload.intro ??
-      "拥有人工智能与数字媒体背景，擅长将内容策略与数据增长结合。",
+    intro: payload.intro && payload.intro.trim() ? payload.intro : undefined,
     vividIntro:
-      payload.vividIntro ??
-      "hello，我叫朱译文，毕业于香港浸会大学，曾在南方都市报、腾讯等公司工作。",
-    tags: payload.tags ?? ["热点运营", "数据驱动", "AIGC 实践"],
+      payload.vividIntro && payload.vividIntro.trim()
+        ? payload.vividIntro
+        : "hello，我叫朱译文，毕业于香港浸会大学，曾在南方都市报、腾讯等公司工作。",
+    tags: payload.tags ? payload.tags : ["热点运营", "数据驱动", "AIGC 实践"],
     avatar: payload.avatar ?? "/media/profile-placeholder.svg"
   };
 });

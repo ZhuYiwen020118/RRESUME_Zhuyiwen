@@ -68,9 +68,11 @@ export default async function HomePage() {
               <h1 className="font-display text-2xl font-bold text-white md:text-3xl lg:text-4xl whitespace-pre-wrap">
                 {hero.vividIntro || `hello，我叫${hero.name}，毕业于香港浸会大学。`}
               </h1>
-              <p className="mt-4 text-base text-white/70 md:text-lg whitespace-pre-wrap">
-                {hero.intro}
-              </p>
+              {hero.intro && (
+                <p className="mt-4 text-base text-white/70 md:text-lg whitespace-pre-wrap">
+                  {hero.intro}
+                </p>
+              )}
             </div>
 
             {/* Right - Large Photo */}
