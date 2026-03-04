@@ -4,10 +4,10 @@ import { prisma } from "@/lib/prisma";
 
 type HeroContent = {
   name: string;
-  slogan: string;
-  intro: string;
-  vividIntro: string;
-  tags: string[];
+  slogan?: string;
+  intro?: string;
+  vividIntro?: string;
+  tags?: string[];
   avatar?: string;
 };
 
@@ -28,13 +28,13 @@ export const getHeroContent = cache(async (): Promise<HeroContent> => {
   const payload = (block?.payload as Partial<HeroContent>) ?? {};
   return {
     name: payload.name ?? "朱译文",
-    slogan: payload.slogan ?? "内容策略 · 数据驱动 · 增长实战",
+    slogan: payload.slogan && payload.slogan.trim() ? payload.slogan : undefined,
     intro: payload.intro && payload.intro.trim() ? payload.intro : undefined,
     vividIntro:
       payload.vividIntro && payload.vividIntro.trim()
         ? payload.vividIntro
         : "hello，我叫朱译文，毕业于香港浸会大学，曾在南方都市报、腾讯等公司工作。",
-    tags: payload.tags ? payload.tags : ["热点运营", "数据驱动", "AIGC 实践"],
+    tags: payload.tags && payload.tags.length > 0 ? payload.tags : undefined,
     avatar: payload.avatar ?? "/media/profile-placeholder.svg"
   };
 });
