@@ -9,7 +9,8 @@ import {
   getContactContent,
   getAboutContent,
   getHighlightMetrics,
-  getExternalLinks
+  getExternalLinks,
+  getHobbies
 } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
@@ -33,7 +34,7 @@ const skillGroups = [
 ];
 
 export default async function HomePage() {
-  const [hero, education, experiences, portfolio, projects, contact, about, metrics, links] = await Promise.all([
+  const [hero, education, experiences, portfolio, projects, contact, about, metrics, links, hobbies] = await Promise.all([
     getHeroContent(),
     getEducation(),
     getExperiences(),
@@ -42,7 +43,8 @@ export default async function HomePage() {
     getContactContent(),
     getAboutContent(),
     getHighlightMetrics(),
-    getExternalLinks()
+    getExternalLinks(),
+    getHobbies()
   ]);
 
   const heroAvatar = hero.avatar ?? "/media/profile-placeholder.svg";
@@ -251,42 +253,33 @@ export default async function HomePage() {
       )}
 
       {/* Interests / Hobbies Section */}
+      {hobbies.length > 0 && (
       <section id="interests" className="px-6 py-12">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-8 font-display text-2xl font-bold text-white">兴趣爱好</h2>
 
-          {/* Bio from About Page */}
-          <div className="mb-8 rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-            <p className="text-white/70">{about.bio}</p>
-            {about.highlights && about.highlights.length > 0 && (
-              <ul className="mt-4 space-y-1.5 text-sm text-white/50">
-                {about.highlights.map((item: string) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-neon-400/60" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {/* Skills */}
-          <div className="grid gap-4 md:grid-cols-2">
-            {skillGroups.map((group) => (
-              <div key={group.title} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
-                <p className="mb-3 text-xs font-medium text-white/40">{group.title}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span key={item} className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-white/60">
-                      {item}
-                    </span>
-                  ))}
+          {/* Hobbies Cards */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {hobbies.map((hobby) => (
+              <div
+                key={hobby.id}
+                className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5"
+              >
+                <div className="flex items-center gap-3">
+                  {hobby.icon && (
+                    <span className="text-2xl">{hobby.icon}</span>
+                  )}
+                  <h3 className="font-medium text-white">{hobby.name}</h3>
                 </div>
+                {hobby.description && (
+                  <p className="mt-2 text-sm text-white/50">{hobby.description}</p>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
+      )}
 
       {/* Contact Section */}
       <section id="contact" className="px-6 py-16">

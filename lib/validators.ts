@@ -102,3 +102,11 @@ export const contactLinkSchema = z.object({
   priority: z.coerce.number().optional()
 });
 
+export const hobbySchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(1),
+  description: z.string().optional(),
+  icon: z.string().optional(),
+  orderIndex: z.coerce.number().optional()
+});
+

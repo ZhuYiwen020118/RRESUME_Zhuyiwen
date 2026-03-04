@@ -1,5 +1,5 @@
 import { cache } from "react";
-import type { ContactLink } from "@prisma/client";
+import type { ContactLink, Hobby } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 type HeroContent = {
@@ -110,6 +110,12 @@ export const getHighlightMetrics = cache(async () => {
 
 export const getProjects = cache(async () => {
   return prisma.project.findMany({
+    orderBy: { orderIndex: "asc" }
+  });
+});
+
+export const getHobbies = cache(async (): Promise<Hobby[]> => {
+  return prisma.hobby.findMany({
     orderBy: { orderIndex: "asc" }
   });
 });

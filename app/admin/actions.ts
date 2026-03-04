@@ -12,7 +12,8 @@ import {
   educationSchema,
   highlightMetricSchema,
   contactSchema,
-  contactLinkSchema
+  contactLinkSchema,
+  hobbySchema
 } from "@/lib/validators";
 import { verifyPassword, createSession, destroySession } from "@/lib/auth";
 import { parseTags } from "@/lib/utils";
@@ -360,5 +361,34 @@ function safeJson(payload?: string | null) {
   } catch {
     return null;
   }
+}
+
+export async function saveHobby(formData: FormData) {
+  const parsed = hobbySchema.parse({
+    id: formData.get("id")?.toString(),
+    name: formData.get("name"),
+    description: formData.get("description"),
+    icon: formData.get("icon"),
+    orderIndex: formData.get("orderIndex")
+  });
+
+  const data = {
+    name: parsed.name,
+    description: parsed.description ?? null,
+    icon: parsed.icon ?? null,
+    orderIndex: parsed.orderIndex ?? 0
+  };
+
+  if (parsed.id) {
+    await prisma.hobby.update({ where: { id: parsed.id }, data });
+  } else {
+    await prisma.hobby.create({ data });
+  }
+  revalidatePath("/");
+}
+
+export async function deleteHobby(id: string) {
+  await prisma.hobby.delete({ where: { id } });
+  revalidatePath("/");
 }
 
