@@ -173,13 +173,20 @@ export async function saveHeroContent(formData: FormData) {
     name: formData.get("name"),
     slogan: formData.get("slogan"),
     intro: formData.get("intro"),
+    vividIntro: formData.get("vividIntro"),
     tags: formData.get("tags"),
     avatar: formData.get("avatar")
   });
+  const normalized = {
+    ...parsed,
+    intro: parsed.intro?.toString().trim() || undefined,
+    vividIntro: parsed.vividIntro?.toString().trim() || undefined,
+    avatar: parsed.avatar?.toString().trim() || undefined
+  };
   await prisma.contentBlock.upsert({
     where: { key: "hero" },
-    update: { payload: { ...parsed, tags: parseTags(parsed.tags) } },
-    create: { key: "hero", payload: { ...parsed, tags: parseTags(parsed.tags) } }
+    update: { payload: { ...normalized, tags: parseTags(normalized.tags) } },
+    create: { key: "hero", payload: { ...normalized, tags: parseTags(normalized.tags) } }
   });
   revalidatePath("/");
 }
@@ -189,10 +196,14 @@ export async function saveAboutContent(formData: FormData) {
     bio: formData.get("bio"),
     highlights: formData.get("highlights")
   });
+  const normalized = {
+    ...parsed,
+    bio: parsed.bio?.toString().trim() || undefined
+  };
   await prisma.contentBlock.upsert({
     where: { key: "about" },
-    update: { payload: { ...parsed, highlights: parseTags(parsed.highlights) } },
-    create: { key: "about", payload: { ...parsed, highlights: parseTags(parsed.highlights) } }
+    update: { payload: { ...normalized, highlights: parseTags(normalized.highlights) } },
+    create: { key: "about", payload: { ...normalized, highlights: parseTags(normalized.highlights) } }
   });
   revalidatePath("/about");
 }

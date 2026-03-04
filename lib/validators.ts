@@ -46,13 +46,16 @@ export const externalLinkSchema = z.object({
 export const heroSchema = z.object({
   name: z.string().min(1),
   slogan: z.string().min(1),
-  intro: z.string().min(1),
+  // 简短介绍与生动介绍允许留空，由前端使用默认文案兜底
+  intro: z.string().optional(),
+  vividIntro: z.string().optional(),
   tags: z.string().optional(),
   avatar: z.string().optional()
 });
 
 export const aboutSchema = z.object({
-  bio: z.string().min(1),
+  // 关于页自述允许留空，由前端使用默认文案兜底
+  bio: z.string().optional(),
   highlights: z.string().optional()
 });
 
